@@ -77,6 +77,12 @@
     },
     "profile_creator": {
       "type": "boolean"
+    },
+    "user_allergy": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::user-allergy.user-allergy",
+      "inversedBy": "user"
     }
   }
 }

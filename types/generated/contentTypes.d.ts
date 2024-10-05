@@ -472,6 +472,10 @@ export interface PluginUsersPermissionsUser
     profiles: Schema.Attribute.Relation<'oneToMany', 'api::profile.profile'>;
     phone_number: Schema.Attribute.String;
     profile_creator: Schema.Attribute.Boolean;
+    user_allergy: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::user-allergy.user-allergy'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -521,6 +525,7 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
     singularName: 'allergy';
     pluralName: 'allergies';
     displayName: 'Allergy';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -531,6 +536,11 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::profile-allergy.profile-allergy'
     >;
+    user_allergy: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::user-allergy.user-allergy'
+    >;
+    is_custom: Schema.Attribute.Boolean;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -822,6 +832,38 @@ export interface ApiTableBookingTableBooking
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::table-booking.table-booking'
+    >;
+  };
+}
+
+export interface ApiUserAllergyUserAllergy extends Struct.CollectionTypeSchema {
+  collectionName: 'user_allergies';
+  info: {
+    singularName: 'user-allergy';
+    pluralName: 'user-allergies';
+    displayName: 'User_allergy';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    allergies: Schema.Attribute.Relation<'oneToMany', 'api::allergy.allergy'>;
+    custom_description: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-allergy.user-allergy'
     >;
   };
 }
@@ -1211,6 +1253,7 @@ declare module '@strapi/strapi' {
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
       'api::review.review': ApiReviewReview;
       'api::table-booking.table-booking': ApiTableBookingTableBooking;
+      'api::user-allergy.user-allergy': ApiUserAllergyUserAllergy;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
