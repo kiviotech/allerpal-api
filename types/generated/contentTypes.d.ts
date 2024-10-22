@@ -635,6 +635,10 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     is_available: Schema.Attribute.Boolean;
     is_vegetarian: Schema.Attribute.Boolean;
     menu: Schema.Attribute.Relation<'manyToOne', 'api::menu.menu'>;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

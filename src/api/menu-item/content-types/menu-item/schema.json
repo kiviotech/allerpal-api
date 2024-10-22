@@ -32,6 +32,16 @@
       "relation": "manyToOne",
       "target": "api::menu.menu",
       "inversedBy": "menu_items"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
