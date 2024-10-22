@@ -34,21 +34,21 @@
       "type": "text"
     },
     "contact_number": {
-      "type": "string",
-      "regex": "^\\d{10}$"
+      "type": "string"
     },
     "rating": {
       "type": "decimal"
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "menus": {
       "type": "relation",
