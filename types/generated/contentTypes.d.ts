@@ -541,6 +541,10 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
       'api::user-allergy.user-allergy'
     >;
     is_custom: Schema.Attribute.Boolean;
+    Allergeimage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

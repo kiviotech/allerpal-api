@@ -29,6 +29,16 @@
     },
     "is_custom": {
       "type": "boolean"
+    },
+    "Allergeimage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
