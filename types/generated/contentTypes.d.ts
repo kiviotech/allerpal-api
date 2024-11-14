@@ -507,6 +507,7 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     blocks: Schema.Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
     >;
+    Profile: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -687,6 +688,9 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
       'api::table-booking.table-booking'
     >;
     reviews: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
+    profile_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -794,6 +798,10 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       'api::restaurant.restaurant'
     >;
     profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
+    Image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

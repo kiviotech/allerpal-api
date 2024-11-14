@@ -29,6 +29,17 @@
       "relation": "manyToOne",
       "target": "api::profile.profile",
       "inversedBy": "reviews"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

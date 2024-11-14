@@ -47,6 +47,16 @@
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "profile"
+    },
+    "profile_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
