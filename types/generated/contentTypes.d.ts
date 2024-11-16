@@ -561,6 +561,33 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFeatureFeature extends Struct.SingleTypeSchema {
+  collectionName: 'features';
+  info: {
+    singularName: 'feature';
+    pluralName: 'features';
+    displayName: 'feature';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    booking_table: Schema.Attribute.Boolean;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::feature.feature'
+    >;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -1264,6 +1291,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
       'api::allergy.allergy': ApiAllergyAllergy;
+      'api::feature.feature': ApiFeatureFeature;
       'api::global.global': ApiGlobalGlobal;
       'api::menu.menu': ApiMenuMenu;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
