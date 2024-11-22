@@ -1,0 +1,91 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guest_details",
+  "info": {
+    "singularName": "guest-detail",
+    "pluralName": "guest-details",
+    "displayName": "Guest",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "aadhaar_number": {
+      "type": "string"
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "donations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::donation.donation",
+      "mappedBy": "guest"
+    },
+    "booking_request": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::booking-request.booking-request",
+      "inversedBy": "guests"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "M",
+        "F",
+        "Other"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "approved",
+        "rejected"
+      ]
+    },
+    "relationship": {
+      "type": "enumeration",
+      "enum": [
+        "mother",
+        "father",
+        "son",
+        "daughter",
+        "wife",
+        "aunt",
+        "friend",
+        "booker",
+        "other"
+      ]
+    },
+    "deeksha": {
+      "type": "enumeration",
+      "enum": [
+        "Sri Ramakrishna – Life and Teachings",
+        "Sri Sarada Devi – Life and Teachings",
+        "Swami Vivekananda – His Life and Legacy",
+        "The Gospel of Sri Ramakrishna",
+        "none"
+      ]
+    },
+    "room_allocation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room-allocation.room-allocation",
+      "inversedBy": "guests"
+    }
+  }
+}

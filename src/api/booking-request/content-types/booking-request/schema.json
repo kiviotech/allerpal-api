@@ -1,0 +1,117 @@
+{
+  "kind": "collectionType",
+  "collectionName": "booking_requests",
+  "info": {
+    "singularName": "booking-request",
+    "pluralName": "booking-requests",
+    "displayName": "BookingRequest",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "awaiting",
+        "approved",
+        "on_hold",
+        "rejected",
+        "confirmed",
+        "rescheduled",
+        "canceled"
+      ]
+    },
+    "admin_comment": {
+      "type": "text"
+    },
+    "name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "M",
+        "F",
+        "Other"
+      ]
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "aadhaar_number": {
+      "type": "string"
+    },
+    "number_of_guest_members": {
+      "type": "integer"
+    },
+    "recommendation_letter": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "reason_for_revisit": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "booking_request"
+    },
+    "room_allocations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::room-allocation.room-allocation",
+      "mappedBy": "booking_request"
+    },
+    "guest_house": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::guest-room.guest-room",
+      "inversedBy": "booking_request"
+    },
+    "guests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::guest-detail.guest-detail",
+      "mappedBy": "booking_request"
+    },
+    "arrival_date": {
+      "type": "date"
+    },
+    "departure_date": {
+      "type": "date"
+    },
+    "deeksha": {
+      "type": "enumeration",
+      "enum": [
+        "Sri Ramakrishna – Life and Teachings",
+        "Sri Sarada Devi – Life and Teachings",
+        "Swami Vivekananda – His Life and Legacy",
+        "The Gospel of Sri Ramakrishna",
+        "none"
+      ]
+    }
+  }
+}

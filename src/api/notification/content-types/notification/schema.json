@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "sent",
+        "pending"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Rejection",
+        "Approval"
+      ]
+    },
+    "booking_request": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::booking-request.booking-request",
+      "inversedBy": "notifications"
+    }
+  }
+}

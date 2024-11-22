@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "beds",
+  "info": {
+    "singularName": "bed",
+    "pluralName": "beds",
+    "displayName": "Bed"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "bed_number": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Available",
+        "Occupied"
+      ]
+    },
+    "room": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room.room",
+      "inversedBy": "beds"
+    },
+    "room_allocation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room-allocation.room-allocation",
+      "inversedBy": "beds"
+    }
+  }
+}

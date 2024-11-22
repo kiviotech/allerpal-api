@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guest_rooms",
+  "info": {
+    "singularName": "guest-room",
+    "pluralName": "guest-rooms",
+    "displayName": "GuestHouse",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "text"
+    },
+    "total_floors": {
+      "type": "integer"
+    },
+    "total_rooms": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "floors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::floor.floor",
+      "mappedBy": "guest_house"
+    },
+    "booking_request": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking-request.booking-request",
+      "mappedBy": "guest_house"
+    }
+  }
+}

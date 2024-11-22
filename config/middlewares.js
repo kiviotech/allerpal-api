@@ -1,37 +1,12 @@
-// path: config/middlewares.js
-
-module.exports = ({ env }) => [
+module.exports = [
+  'strapi::logger',
   'strapi::errors',
-  {
-    name: 'strapi::security',
-    config: {
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'your-cdn-domain.com'],
-          'media-src': ["'self'", 'data:', 'blob:', 'your-cdn-domain.com'],
-          upgradeInsecureRequests: null,
-        },
-      },
-    },
-  },
+  'strapi::security',
   'strapi::cors',
   'strapi::poweredBy',
-  'strapi::logger',
   'strapi::query',
-  {
-    name: 'strapi::body',
-    config: {
-      prefix: '/dash',
-    },
-  },
+  'strapi::body',
   'strapi::session',
   'strapi::favicon',
-  {
-    name: 'strapi::public',
-    config: {
-      path: '/dash',
-    },
-  },
+  'strapi::public',
 ];

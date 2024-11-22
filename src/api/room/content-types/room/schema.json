@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rooms",
+  "info": {
+    "singularName": "room",
+    "pluralName": "rooms",
+    "displayName": "room",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "room_number": {
+      "type": "string"
+    },
+    "room_type": {
+      "type": "enumeration",
+      "enum": [
+        "Single",
+        "Double",
+        "Deluxe"
+      ]
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "available",
+        "occupied",
+        "cleaning",
+        "blocked"
+      ]
+    },
+    "beds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bed.bed",
+      "mappedBy": "room"
+    },
+    "floor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::floor.floor",
+      "inversedBy": "rooms"
+    }
+  }
+}

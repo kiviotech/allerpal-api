@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "receipt_details",
+  "info": {
+    "singularName": "receipt-detail",
+    "pluralName": "receipt-details",
+    "displayName": "ReceiptDetails",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Receipt_number": {
+      "type": "string",
+      "required": false,
+      "unique": true
+    },
+    "donation_date": {
+      "type": "date"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "receipt_details"
+    },
+    "donations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::donation.donation",
+      "mappedBy": "receipt_detail"
+    }
+  }
+}

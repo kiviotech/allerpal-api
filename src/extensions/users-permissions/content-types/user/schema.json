@@ -65,24 +65,19 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "profiles": {
+    "user_role": {
+      "type": "enumeration",
+      "enum": [
+        "admin",
+        "deeksha"
+      ],
+      "default": "deeksha"
+    },
+    "receipt_details": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::profile.profile",
+      "target": "api::receipt-detail.receipt-detail",
       "mappedBy": "user"
-    },
-    "phone_number": {
-      "type": "string",
-      "regex": "^\\d{10}$"
-    },
-    "profile_creator": {
-      "type": "boolean"
-    },
-    "user_allergy": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::user-allergy.user-allergy",
-      "inversedBy": "user"
     }
   }
 }

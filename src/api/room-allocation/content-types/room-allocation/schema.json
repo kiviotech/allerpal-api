@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "room_allocations",
+  "info": {
+    "singularName": "room-allocation",
+    "pluralName": "room-allocations",
+    "displayName": "RoomAllocation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "allocation_date": {
+      "type": "date"
+    },
+    "booking_request": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::booking-request.booking-request",
+      "inversedBy": "room_allocations"
+    },
+    "beds": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bed.bed",
+      "mappedBy": "room_allocation"
+    },
+    "guests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::guest-detail.guest-detail",
+      "mappedBy": "room_allocation"
+    }
+  }
+}

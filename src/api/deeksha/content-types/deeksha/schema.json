@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deekshas",
+  "info": {
+    "singularName": "deeksha",
+    "pluralName": "deekshas",
+    "displayName": "Deeksha",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Care_Of": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "text"
+    },
+    "PAN": {
+      "type": "string"
+    },
+    "Aadhar": {
+      "type": "biginteger"
+    },
+    "Phone_no": {
+      "type": "biginteger"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Age": {
+      "type": "biginteger"
+    },
+    "Education_Qualification": {
+      "type": "string"
+    },
+    "Occupation": {
+      "type": "string"
+    },
+    "Hearing_Problems": {
+      "type": "string"
+    },
+    "Disabilities": {
+      "type": "string"
+    },
+    "Prior_Deeksha_Experience": {
+      "type": "string"
+    },
+    "Books_read": {
+      "type": "text"
+    },
+    "Sadhu_Reference": {
+      "type": "string"
+    },
+    "Deeksha_Wish_Duration": {
+      "type": "string"
+    },
+    "Family_Deeksha": {
+      "type": "text"
+    },
+    "Deeksha_Practice": {
+      "type": "string"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "Pincode": {
+      "type": "biginteger"
+    },
+    "District": {
+      "type": "string"
+    },
+    "State": {
+      "type": "string"
+    },
+    "Country": {
+      "type": "string"
+    }
+  }
+}

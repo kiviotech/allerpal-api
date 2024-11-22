@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "donations",
+  "info": {
+    "singularName": "donation",
+    "pluralName": "donations",
+    "displayName": "donation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "guest": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::guest-detail.guest-detail",
+      "inversedBy": "donations"
+    },
+    "receipt_detail": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::receipt-detail.receipt-detail",
+      "inversedBy": "donations"
+    },
+    "purposeForDonation": {
+      "type": "enumeration",
+      "enum": [
+        "Charity"
+      ]
+    },
+    "donationAmount": {
+      "type": "biginteger"
+    },
+    "transactionType": {
+      "type": "enumeration",
+      "enum": [
+        "Cash",
+        "Cheque"
+      ]
+    },
+    "donationFor": {
+      "type": "enumeration",
+      "enum": [
+        "Kind Heart"
+      ]
+    },
+    "ddch_number": {
+      "type": "string"
+    },
+    "ddch_date": {
+      "type": "date"
+    },
+    "bankName": {
+      "type": "text"
+    }
+  }
+}
