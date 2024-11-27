@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-11-22T08:28:28.518Z"
+    "x-generation-date": "2024-11-27T14:01:57.123Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1344,6 +1344,46 @@
                                                                                             }
                                                                                           }
                                                                                         },
+                                                                                        "InMemoryOf": {
+                                                                                          "type": "string",
+                                                                                          "enum": [
+                                                                                            "for Thakur Seva"
+                                                                                          ]
+                                                                                        },
+                                                                                        "donationAmount": {
+                                                                                          "type": "string",
+                                                                                          "pattern": "^\\d*$",
+                                                                                          "example": "123456789"
+                                                                                        },
+                                                                                        "transactionType": {
+                                                                                          "type": "string",
+                                                                                          "enum": [
+                                                                                            "Cash",
+                                                                                            "Cheque",
+                                                                                            "Bank Transfer",
+                                                                                            "DD",
+                                                                                            "M.O",
+                                                                                            "Kind",
+                                                                                            "Electronic Modes"
+                                                                                          ]
+                                                                                        },
+                                                                                        "donationFor": {
+                                                                                          "type": "string",
+                                                                                          "enum": [
+                                                                                            "Math",
+                                                                                            "Mission"
+                                                                                          ]
+                                                                                        },
+                                                                                        "ddch_number": {
+                                                                                          "type": "string"
+                                                                                        },
+                                                                                        "ddch_date": {
+                                                                                          "type": "string",
+                                                                                          "format": "date"
+                                                                                        },
+                                                                                        "bankName": {
+                                                                                          "type": "string"
+                                                                                        },
                                                                                         "receipt_detail": {
                                                                                           "type": "object",
                                                                                           "properties": {
@@ -1363,7 +1403,7 @@
                                                                                                       "type": "string",
                                                                                                       "format": "date"
                                                                                                     },
-                                                                                                    "user": {
+                                                                                                    "createdby": {
                                                                                                       "type": "object",
                                                                                                       "properties": {
                                                                                                         "data": {
@@ -1716,40 +1756,6 @@
                                                                                             }
                                                                                           }
                                                                                         },
-                                                                                        "purposeForDonation": {
-                                                                                          "type": "string",
-                                                                                          "enum": [
-                                                                                            "Charity"
-                                                                                          ]
-                                                                                        },
-                                                                                        "donationAmount": {
-                                                                                          "type": "string",
-                                                                                          "pattern": "^\\d*$",
-                                                                                          "example": "123456789"
-                                                                                        },
-                                                                                        "transactionType": {
-                                                                                          "type": "string",
-                                                                                          "enum": [
-                                                                                            "Cash",
-                                                                                            "Cheque"
-                                                                                          ]
-                                                                                        },
-                                                                                        "donationFor": {
-                                                                                          "type": "string",
-                                                                                          "enum": [
-                                                                                            "Kind Heart"
-                                                                                          ]
-                                                                                        },
-                                                                                        "ddch_number": {
-                                                                                          "type": "string"
-                                                                                        },
-                                                                                        "ddch_date": {
-                                                                                          "type": "string",
-                                                                                          "format": "date"
-                                                                                        },
-                                                                                        "bankName": {
-                                                                                          "type": "string"
-                                                                                        },
                                                                                         "createdAt": {
                                                                                           "type": "string",
                                                                                           "format": "date-time"
@@ -1831,6 +1837,7 @@
                                                                             "type": "string",
                                                                             "enum": [
                                                                               "approved",
+                                                                              "pending",
                                                                               "rejected"
                                                                             ]
                                                                           },
@@ -1874,6 +1881,10 @@
                                                                                 }
                                                                               }
                                                                             }
+                                                                          },
+                                                                          "email": {
+                                                                            "type": "string",
+                                                                            "format": "email"
                                                                           },
                                                                           "createdAt": {
                                                                             "type": "string",
@@ -3925,6 +3936,46 @@
                                                                                   }
                                                                                 }
                                                                               },
+                                                                              "InMemoryOf": {
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                  "for Thakur Seva"
+                                                                                ]
+                                                                              },
+                                                                              "donationAmount": {
+                                                                                "type": "string",
+                                                                                "pattern": "^\\d*$",
+                                                                                "example": "123456789"
+                                                                              },
+                                                                              "transactionType": {
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                  "Cash",
+                                                                                  "Cheque",
+                                                                                  "Bank Transfer",
+                                                                                  "DD",
+                                                                                  "M.O",
+                                                                                  "Kind",
+                                                                                  "Electronic Modes"
+                                                                                ]
+                                                                              },
+                                                                              "donationFor": {
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                  "Math",
+                                                                                  "Mission"
+                                                                                ]
+                                                                              },
+                                                                              "ddch_number": {
+                                                                                "type": "string"
+                                                                              },
+                                                                              "ddch_date": {
+                                                                                "type": "string",
+                                                                                "format": "date"
+                                                                              },
+                                                                              "bankName": {
+                                                                                "type": "string"
+                                                                              },
                                                                               "receipt_detail": {
                                                                                 "type": "object",
                                                                                 "properties": {
@@ -3944,7 +3995,7 @@
                                                                                             "type": "string",
                                                                                             "format": "date"
                                                                                           },
-                                                                                          "user": {
+                                                                                          "createdby": {
                                                                                             "type": "object",
                                                                                             "properties": {
                                                                                               "data": {
@@ -4297,40 +4348,6 @@
                                                                                   }
                                                                                 }
                                                                               },
-                                                                              "purposeForDonation": {
-                                                                                "type": "string",
-                                                                                "enum": [
-                                                                                  "Charity"
-                                                                                ]
-                                                                              },
-                                                                              "donationAmount": {
-                                                                                "type": "string",
-                                                                                "pattern": "^\\d*$",
-                                                                                "example": "123456789"
-                                                                              },
-                                                                              "transactionType": {
-                                                                                "type": "string",
-                                                                                "enum": [
-                                                                                  "Cash",
-                                                                                  "Cheque"
-                                                                                ]
-                                                                              },
-                                                                              "donationFor": {
-                                                                                "type": "string",
-                                                                                "enum": [
-                                                                                  "Kind Heart"
-                                                                                ]
-                                                                              },
-                                                                              "ddch_number": {
-                                                                                "type": "string"
-                                                                              },
-                                                                              "ddch_date": {
-                                                                                "type": "string",
-                                                                                "format": "date"
-                                                                              },
-                                                                              "bankName": {
-                                                                                "type": "string"
-                                                                              },
                                                                               "createdAt": {
                                                                                 "type": "string",
                                                                                 "format": "date-time"
@@ -4412,6 +4429,7 @@
                                                                   "type": "string",
                                                                   "enum": [
                                                                     "approved",
+                                                                    "pending",
                                                                     "rejected"
                                                                   ]
                                                                 },
@@ -4455,6 +4473,10 @@
                                                                       }
                                                                     }
                                                                   }
+                                                                },
+                                                                "email": {
+                                                                  "type": "string",
+                                                                  "format": "email"
                                                                 },
                                                                 "createdAt": {
                                                                   "type": "string",
@@ -4879,67 +4901,8 @@
               "Name": {
                 "type": "string"
               },
-              "Care_Of": {
-                "type": "string"
-              },
               "Address": {
                 "type": "string"
-              },
-              "PAN": {
-                "type": "string"
-              },
-              "Aadhar": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
-              },
-              "Phone_no": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
-              },
-              "Email": {
-                "type": "string",
-                "format": "email"
-              },
-              "Age": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
-              },
-              "Education_Qualification": {
-                "type": "string"
-              },
-              "Occupation": {
-                "type": "string"
-              },
-              "Hearing_Problems": {
-                "type": "string"
-              },
-              "Disabilities": {
-                "type": "string"
-              },
-              "Prior_Deeksha_Experience": {
-                "type": "string"
-              },
-              "Books_read": {
-                "type": "string"
-              },
-              "Sadhu_Reference": {
-                "type": "string"
-              },
-              "Deeksha_Wish_Duration": {
-                "type": "string"
-              },
-              "Family_Deeksha": {
-                "type": "string"
-              },
-              "Deeksha_Practice": {
-                "type": "string"
-              },
-              "Date": {
-                "type": "string",
-                "format": "date"
               },
               "Pincode": {
                 "type": "string",
@@ -4953,6 +4916,157 @@
                 "type": "string"
               },
               "Country": {
+                "type": "string"
+              },
+              "Phone_no": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
+              },
+              "Email": {
+                "type": "string",
+                "format": "email"
+              },
+              "Aadhar_no": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
+              },
+              "PAN_no": {
+                "type": "string"
+              },
+              "Education": {
+                "type": "string",
+                "enum": [
+                  "Early childhood education",
+                  "Secondary education",
+                  "Higher education",
+                  "Undergraduate degree",
+                  "Post-graduate degree"
+                ]
+              },
+              "Occupation": {
+                "type": "string"
+              },
+              "Languages_known": {
+                "type": "string",
+                "enum": [
+                  "English",
+                  "Bengali",
+                  "Gujarati",
+                  "Hindi",
+                  "Kannada",
+                  "Malayalam",
+                  "Punjabi",
+                  "Tamil",
+                  "Telugu",
+                  "Urdu",
+                  "null"
+                ]
+              },
+              "Spouse_consent": {
+                "type": "boolean"
+              },
+              "Initiated_by_anyone": {
+                "type": "boolean"
+              },
+              "Family_Deeksha": {
+                "type": "boolean"
+              },
+              "Name_family_deeksha": {
+                "type": "string"
+              },
+              "Relation": {
+                "type": "string",
+                "enum": [
+                  "Husband",
+                  "Wife",
+                  "Son",
+                  "Daughter",
+                  "Father",
+                  "Mother",
+                  "Mother-in-law",
+                  "Father-in-law",
+                  "Grandfather",
+                  "Grandmother",
+                  "null"
+                ]
+              },
+              "Family_Deeksha_Guru": {
+                "type": "string",
+                "enum": [
+                  "Guru1",
+                  "Guru2",
+                  "Guru3",
+                  "Guru4"
+                ]
+              },
+              "Known_Guruji": {
+                "type": "boolean"
+              },
+              "Known_Guru_name": {
+                "type": "string",
+                "enum": [
+                  "Guru 1",
+                  "Guru 2",
+                  "Guru 3",
+                  "Guru 4",
+                  "null"
+                ]
+              },
+              "Known_Guru_centre": {
+                "type": "string",
+                "enum": [
+                  "Centre1",
+                  "Centre2",
+                  "Centre3",
+                  "Centre4",
+                  "null"
+                ]
+              },
+              "Waiting_for_Deeksha": {
+                "type": "integer"
+              },
+              "Books_read": {
+                "type": "string"
+              },
+              "Practice_Deeksha": {
+                "type": "boolean"
+              },
+              "Disabilities": {
+                "type": "boolean"
+              },
+              "Hearing_Problems": {
+                "type": "boolean"
+              },
+              "Booklet_language": {
+                "type": "string",
+                "enum": [
+                  "English",
+                  "Hindi",
+                  "Tamil",
+                  "Telugu",
+                  "Kannada",
+                  "Malayalam",
+                  "\"Bengali",
+                  "Gujarati",
+                  "Marathi",
+                  "Punjabi"
+                ]
+              },
+              "Gender": {
+                "type": "string"
+              },
+              "Marital_status": {
+                "type": "string",
+                "enum": [
+                  "Unmarried",
+                  "Married",
+                  "Widow",
+                  "Widower"
+                ]
+              },
+              "Care_Of": {
                 "type": "string"
               }
             }
@@ -5011,67 +5125,8 @@
           "Name": {
             "type": "string"
           },
-          "Care_Of": {
-            "type": "string"
-          },
           "Address": {
             "type": "string"
-          },
-          "PAN": {
-            "type": "string"
-          },
-          "Aadhar": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
-          },
-          "Phone_no": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
-          },
-          "Email": {
-            "type": "string",
-            "format": "email"
-          },
-          "Age": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
-          },
-          "Education_Qualification": {
-            "type": "string"
-          },
-          "Occupation": {
-            "type": "string"
-          },
-          "Hearing_Problems": {
-            "type": "string"
-          },
-          "Disabilities": {
-            "type": "string"
-          },
-          "Prior_Deeksha_Experience": {
-            "type": "string"
-          },
-          "Books_read": {
-            "type": "string"
-          },
-          "Sadhu_Reference": {
-            "type": "string"
-          },
-          "Deeksha_Wish_Duration": {
-            "type": "string"
-          },
-          "Family_Deeksha": {
-            "type": "string"
-          },
-          "Deeksha_Practice": {
-            "type": "string"
-          },
-          "Date": {
-            "type": "string",
-            "format": "date"
           },
           "Pincode": {
             "type": "string",
@@ -5085,6 +5140,157 @@
             "type": "string"
           },
           "Country": {
+            "type": "string"
+          },
+          "Phone_no": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
+          "Email": {
+            "type": "string",
+            "format": "email"
+          },
+          "Aadhar_no": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
+          "PAN_no": {
+            "type": "string"
+          },
+          "Education": {
+            "type": "string",
+            "enum": [
+              "Early childhood education",
+              "Secondary education",
+              "Higher education",
+              "Undergraduate degree",
+              "Post-graduate degree"
+            ]
+          },
+          "Occupation": {
+            "type": "string"
+          },
+          "Languages_known": {
+            "type": "string",
+            "enum": [
+              "English",
+              "Bengali",
+              "Gujarati",
+              "Hindi",
+              "Kannada",
+              "Malayalam",
+              "Punjabi",
+              "Tamil",
+              "Telugu",
+              "Urdu",
+              "null"
+            ]
+          },
+          "Spouse_consent": {
+            "type": "boolean"
+          },
+          "Initiated_by_anyone": {
+            "type": "boolean"
+          },
+          "Family_Deeksha": {
+            "type": "boolean"
+          },
+          "Name_family_deeksha": {
+            "type": "string"
+          },
+          "Relation": {
+            "type": "string",
+            "enum": [
+              "Husband",
+              "Wife",
+              "Son",
+              "Daughter",
+              "Father",
+              "Mother",
+              "Mother-in-law",
+              "Father-in-law",
+              "Grandfather",
+              "Grandmother",
+              "null"
+            ]
+          },
+          "Family_Deeksha_Guru": {
+            "type": "string",
+            "enum": [
+              "Guru1",
+              "Guru2",
+              "Guru3",
+              "Guru4"
+            ]
+          },
+          "Known_Guruji": {
+            "type": "boolean"
+          },
+          "Known_Guru_name": {
+            "type": "string",
+            "enum": [
+              "Guru 1",
+              "Guru 2",
+              "Guru 3",
+              "Guru 4",
+              "null"
+            ]
+          },
+          "Known_Guru_centre": {
+            "type": "string",
+            "enum": [
+              "Centre1",
+              "Centre2",
+              "Centre3",
+              "Centre4",
+              "null"
+            ]
+          },
+          "Waiting_for_Deeksha": {
+            "type": "integer"
+          },
+          "Books_read": {
+            "type": "string"
+          },
+          "Practice_Deeksha": {
+            "type": "boolean"
+          },
+          "Disabilities": {
+            "type": "boolean"
+          },
+          "Hearing_Problems": {
+            "type": "boolean"
+          },
+          "Booklet_language": {
+            "type": "string",
+            "enum": [
+              "English",
+              "Hindi",
+              "Tamil",
+              "Telugu",
+              "Kannada",
+              "Malayalam",
+              "\"Bengali",
+              "Gujarati",
+              "Marathi",
+              "Punjabi"
+            ]
+          },
+          "Gender": {
+            "type": "string"
+          },
+          "Marital_status": {
+            "type": "string",
+            "enum": [
+              "Unmarried",
+              "Married",
+              "Widow",
+              "Widower"
+            ]
+          },
+          "Care_Of": {
             "type": "string"
           },
           "createdAt": {
@@ -5429,21 +5635,10 @@
                 ],
                 "example": "string or id"
               },
-              "receipt_detail": {
-                "oneOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ],
-                "example": "string or id"
-              },
-              "purposeForDonation": {
+              "InMemoryOf": {
                 "type": "string",
                 "enum": [
-                  "Charity"
+                  "for Thakur Seva"
                 ]
               },
               "donationAmount": {
@@ -5455,13 +5650,19 @@
                 "type": "string",
                 "enum": [
                   "Cash",
-                  "Cheque"
+                  "Cheque",
+                  "Bank Transfer",
+                  "DD",
+                  "M.O",
+                  "Kind",
+                  "Electronic Modes"
                 ]
               },
               "donationFor": {
                 "type": "string",
                 "enum": [
-                  "Kind Heart"
+                  "Math",
+                  "Mission"
                 ]
               },
               "ddch_number": {
@@ -5473,6 +5674,17 @@
               },
               "bankName": {
                 "type": "string"
+              },
+              "receipt_detail": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
               }
             }
           }
@@ -5585,6 +5797,46 @@
                                         }
                                       }
                                     },
+                                    "InMemoryOf": {
+                                      "type": "string",
+                                      "enum": [
+                                        "for Thakur Seva"
+                                      ]
+                                    },
+                                    "donationAmount": {
+                                      "type": "string",
+                                      "pattern": "^\\d*$",
+                                      "example": "123456789"
+                                    },
+                                    "transactionType": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Cash",
+                                        "Cheque",
+                                        "Bank Transfer",
+                                        "DD",
+                                        "M.O",
+                                        "Kind",
+                                        "Electronic Modes"
+                                      ]
+                                    },
+                                    "donationFor": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Math",
+                                        "Mission"
+                                      ]
+                                    },
+                                    "ddch_number": {
+                                      "type": "string"
+                                    },
+                                    "ddch_date": {
+                                      "type": "string",
+                                      "format": "date"
+                                    },
+                                    "bankName": {
+                                      "type": "string"
+                                    },
                                     "receipt_detail": {
                                       "type": "object",
                                       "properties": {
@@ -5604,7 +5856,7 @@
                                                   "type": "string",
                                                   "format": "date"
                                                 },
-                                                "user": {
+                                                "createdby": {
                                                   "type": "object",
                                                   "properties": {
                                                     "data": {
@@ -6208,40 +6460,6 @@
                                           }
                                         }
                                       }
-                                    },
-                                    "purposeForDonation": {
-                                      "type": "string",
-                                      "enum": [
-                                        "Charity"
-                                      ]
-                                    },
-                                    "donationAmount": {
-                                      "type": "string",
-                                      "pattern": "^\\d*$",
-                                      "example": "123456789"
-                                    },
-                                    "transactionType": {
-                                      "type": "string",
-                                      "enum": [
-                                        "Cash",
-                                        "Cheque"
-                                      ]
-                                    },
-                                    "donationFor": {
-                                      "type": "string",
-                                      "enum": [
-                                        "Kind Heart"
-                                      ]
-                                    },
-                                    "ddch_number": {
-                                      "type": "string"
-                                    },
-                                    "ddch_date": {
-                                      "type": "string",
-                                      "format": "date"
-                                    },
-                                    "bankName": {
-                                      "type": "string"
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -7460,6 +7678,7 @@
                         "type": "string",
                         "enum": [
                           "approved",
+                          "pending",
                           "rejected"
                         ]
                       },
@@ -7503,6 +7722,10 @@
                             }
                           }
                         }
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
                       },
                       "createdAt": {
                         "type": "string",
@@ -7556,6 +7779,46 @@
               }
             }
           },
+          "InMemoryOf": {
+            "type": "string",
+            "enum": [
+              "for Thakur Seva"
+            ]
+          },
+          "donationAmount": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "Cash",
+              "Cheque",
+              "Bank Transfer",
+              "DD",
+              "M.O",
+              "Kind",
+              "Electronic Modes"
+            ]
+          },
+          "donationFor": {
+            "type": "string",
+            "enum": [
+              "Math",
+              "Mission"
+            ]
+          },
+          "ddch_number": {
+            "type": "string"
+          },
+          "ddch_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "bankName": {
+            "type": "string"
+          },
           "receipt_detail": {
             "type": "object",
             "properties": {
@@ -7572,40 +7835,6 @@
                 }
               }
             }
-          },
-          "purposeForDonation": {
-            "type": "string",
-            "enum": [
-              "Charity"
-            ]
-          },
-          "donationAmount": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
-          },
-          "transactionType": {
-            "type": "string",
-            "enum": [
-              "Cash",
-              "Cheque"
-            ]
-          },
-          "donationFor": {
-            "type": "string",
-            "enum": [
-              "Kind Heart"
-            ]
-          },
-          "ddch_number": {
-            "type": "string"
-          },
-          "ddch_date": {
-            "type": "string",
-            "format": "date"
-          },
-          "bankName": {
-            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -8810,6 +9039,46 @@
                                                                                                                         }
                                                                                                                       }
                                                                                                                     },
+                                                                                                                    "InMemoryOf": {
+                                                                                                                      "type": "string",
+                                                                                                                      "enum": [
+                                                                                                                        "for Thakur Seva"
+                                                                                                                      ]
+                                                                                                                    },
+                                                                                                                    "donationAmount": {
+                                                                                                                      "type": "string",
+                                                                                                                      "pattern": "^\\d*$",
+                                                                                                                      "example": "123456789"
+                                                                                                                    },
+                                                                                                                    "transactionType": {
+                                                                                                                      "type": "string",
+                                                                                                                      "enum": [
+                                                                                                                        "Cash",
+                                                                                                                        "Cheque",
+                                                                                                                        "Bank Transfer",
+                                                                                                                        "DD",
+                                                                                                                        "M.O",
+                                                                                                                        "Kind",
+                                                                                                                        "Electronic Modes"
+                                                                                                                      ]
+                                                                                                                    },
+                                                                                                                    "donationFor": {
+                                                                                                                      "type": "string",
+                                                                                                                      "enum": [
+                                                                                                                        "Math",
+                                                                                                                        "Mission"
+                                                                                                                      ]
+                                                                                                                    },
+                                                                                                                    "ddch_number": {
+                                                                                                                      "type": "string"
+                                                                                                                    },
+                                                                                                                    "ddch_date": {
+                                                                                                                      "type": "string",
+                                                                                                                      "format": "date"
+                                                                                                                    },
+                                                                                                                    "bankName": {
+                                                                                                                      "type": "string"
+                                                                                                                    },
                                                                                                                     "receipt_detail": {
                                                                                                                       "type": "object",
                                                                                                                       "properties": {
@@ -8829,7 +9098,7 @@
                                                                                                                                   "type": "string",
                                                                                                                                   "format": "date"
                                                                                                                                 },
-                                                                                                                                "user": {
+                                                                                                                                "createdby": {
                                                                                                                                   "type": "object",
                                                                                                                                   "properties": {
                                                                                                                                     "data": {
@@ -9182,40 +9451,6 @@
                                                                                                                         }
                                                                                                                       }
                                                                                                                     },
-                                                                                                                    "purposeForDonation": {
-                                                                                                                      "type": "string",
-                                                                                                                      "enum": [
-                                                                                                                        "Charity"
-                                                                                                                      ]
-                                                                                                                    },
-                                                                                                                    "donationAmount": {
-                                                                                                                      "type": "string",
-                                                                                                                      "pattern": "^\\d*$",
-                                                                                                                      "example": "123456789"
-                                                                                                                    },
-                                                                                                                    "transactionType": {
-                                                                                                                      "type": "string",
-                                                                                                                      "enum": [
-                                                                                                                        "Cash",
-                                                                                                                        "Cheque"
-                                                                                                                      ]
-                                                                                                                    },
-                                                                                                                    "donationFor": {
-                                                                                                                      "type": "string",
-                                                                                                                      "enum": [
-                                                                                                                        "Kind Heart"
-                                                                                                                      ]
-                                                                                                                    },
-                                                                                                                    "ddch_number": {
-                                                                                                                      "type": "string"
-                                                                                                                    },
-                                                                                                                    "ddch_date": {
-                                                                                                                      "type": "string",
-                                                                                                                      "format": "date"
-                                                                                                                    },
-                                                                                                                    "bankName": {
-                                                                                                                      "type": "string"
-                                                                                                                    },
                                                                                                                     "createdAt": {
                                                                                                                       "type": "string",
                                                                                                                       "format": "date-time"
@@ -9297,6 +9532,7 @@
                                                                                                         "type": "string",
                                                                                                         "enum": [
                                                                                                           "approved",
+                                                                                                          "pending",
                                                                                                           "rejected"
                                                                                                         ]
                                                                                                       },
@@ -9340,6 +9576,10 @@
                                                                                                             }
                                                                                                           }
                                                                                                         }
+                                                                                                      },
+                                                                                                      "email": {
+                                                                                                        "type": "string",
+                                                                                                        "format": "email"
                                                                                                       },
                                                                                                       "createdAt": {
                                                                                                         "type": "string",
@@ -9955,6 +10195,7 @@
                 "type": "string",
                 "enum": [
                   "approved",
+                  "pending",
                   "rejected"
                 ]
               },
@@ -9992,6 +10233,10 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
               }
             }
           }
@@ -11542,6 +11787,7 @@
                                       "type": "string",
                                       "enum": [
                                         "approved",
+                                        "pending",
                                         "rejected"
                                       ]
                                     },
@@ -11585,6 +11831,10 @@
                                           }
                                         }
                                       }
+                                    },
+                                    "email": {
+                                      "type": "string",
+                                      "format": "email"
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -11638,6 +11888,46 @@
                             }
                           }
                         },
+                        "InMemoryOf": {
+                          "type": "string",
+                          "enum": [
+                            "for Thakur Seva"
+                          ]
+                        },
+                        "donationAmount": {
+                          "type": "string",
+                          "pattern": "^\\d*$",
+                          "example": "123456789"
+                        },
+                        "transactionType": {
+                          "type": "string",
+                          "enum": [
+                            "Cash",
+                            "Cheque",
+                            "Bank Transfer",
+                            "DD",
+                            "M.O",
+                            "Kind",
+                            "Electronic Modes"
+                          ]
+                        },
+                        "donationFor": {
+                          "type": "string",
+                          "enum": [
+                            "Math",
+                            "Mission"
+                          ]
+                        },
+                        "ddch_number": {
+                          "type": "string"
+                        },
+                        "ddch_date": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "bankName": {
+                          "type": "string"
+                        },
                         "receipt_detail": {
                           "type": "object",
                           "properties": {
@@ -11657,7 +11947,7 @@
                                       "type": "string",
                                       "format": "date"
                                     },
-                                    "user": {
+                                    "createdby": {
                                       "type": "object",
                                       "properties": {
                                         "data": {
@@ -12010,40 +12300,6 @@
                             }
                           }
                         },
-                        "purposeForDonation": {
-                          "type": "string",
-                          "enum": [
-                            "Charity"
-                          ]
-                        },
-                        "donationAmount": {
-                          "type": "string",
-                          "pattern": "^\\d*$",
-                          "example": "123456789"
-                        },
-                        "transactionType": {
-                          "type": "string",
-                          "enum": [
-                            "Cash",
-                            "Cheque"
-                          ]
-                        },
-                        "donationFor": {
-                          "type": "string",
-                          "enum": [
-                            "Kind Heart"
-                          ]
-                        },
-                        "ddch_number": {
-                          "type": "string"
-                        },
-                        "ddch_date": {
-                          "type": "string",
-                          "format": "date"
-                        },
-                        "bankName": {
-                          "type": "string"
-                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -12125,6 +12381,7 @@
             "type": "string",
             "enum": [
               "approved",
+              "pending",
               "rejected"
             ]
           },
@@ -12168,6 +12425,10 @@
                 }
               }
             }
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
           },
           "createdAt": {
             "type": "string",
@@ -13519,6 +13780,46 @@
                                                                                               }
                                                                                             }
                                                                                           },
+                                                                                          "InMemoryOf": {
+                                                                                            "type": "string",
+                                                                                            "enum": [
+                                                                                              "for Thakur Seva"
+                                                                                            ]
+                                                                                          },
+                                                                                          "donationAmount": {
+                                                                                            "type": "string",
+                                                                                            "pattern": "^\\d*$",
+                                                                                            "example": "123456789"
+                                                                                          },
+                                                                                          "transactionType": {
+                                                                                            "type": "string",
+                                                                                            "enum": [
+                                                                                              "Cash",
+                                                                                              "Cheque",
+                                                                                              "Bank Transfer",
+                                                                                              "DD",
+                                                                                              "M.O",
+                                                                                              "Kind",
+                                                                                              "Electronic Modes"
+                                                                                            ]
+                                                                                          },
+                                                                                          "donationFor": {
+                                                                                            "type": "string",
+                                                                                            "enum": [
+                                                                                              "Math",
+                                                                                              "Mission"
+                                                                                            ]
+                                                                                          },
+                                                                                          "ddch_number": {
+                                                                                            "type": "string"
+                                                                                          },
+                                                                                          "ddch_date": {
+                                                                                            "type": "string",
+                                                                                            "format": "date"
+                                                                                          },
+                                                                                          "bankName": {
+                                                                                            "type": "string"
+                                                                                          },
                                                                                           "receipt_detail": {
                                                                                             "type": "object",
                                                                                             "properties": {
@@ -13538,7 +13839,7 @@
                                                                                                         "type": "string",
                                                                                                         "format": "date"
                                                                                                       },
-                                                                                                      "user": {
+                                                                                                      "createdby": {
                                                                                                         "type": "object",
                                                                                                         "properties": {
                                                                                                           "data": {
@@ -13891,40 +14192,6 @@
                                                                                               }
                                                                                             }
                                                                                           },
-                                                                                          "purposeForDonation": {
-                                                                                            "type": "string",
-                                                                                            "enum": [
-                                                                                              "Charity"
-                                                                                            ]
-                                                                                          },
-                                                                                          "donationAmount": {
-                                                                                            "type": "string",
-                                                                                            "pattern": "^\\d*$",
-                                                                                            "example": "123456789"
-                                                                                          },
-                                                                                          "transactionType": {
-                                                                                            "type": "string",
-                                                                                            "enum": [
-                                                                                              "Cash",
-                                                                                              "Cheque"
-                                                                                            ]
-                                                                                          },
-                                                                                          "donationFor": {
-                                                                                            "type": "string",
-                                                                                            "enum": [
-                                                                                              "Kind Heart"
-                                                                                            ]
-                                                                                          },
-                                                                                          "ddch_number": {
-                                                                                            "type": "string"
-                                                                                          },
-                                                                                          "ddch_date": {
-                                                                                            "type": "string",
-                                                                                            "format": "date"
-                                                                                          },
-                                                                                          "bankName": {
-                                                                                            "type": "string"
-                                                                                          },
                                                                                           "createdAt": {
                                                                                             "type": "string",
                                                                                             "format": "date-time"
@@ -14006,6 +14273,7 @@
                                                                               "type": "string",
                                                                               "enum": [
                                                                                 "approved",
+                                                                                "pending",
                                                                                 "rejected"
                                                                               ]
                                                                             },
@@ -14049,6 +14317,10 @@
                                                                                   }
                                                                                 }
                                                                               }
+                                                                            },
+                                                                            "email": {
+                                                                              "type": "string",
+                                                                              "format": "email"
                                                                             },
                                                                             "createdAt": {
                                                                               "type": "string",
@@ -15861,6 +16133,46 @@
                                                                     }
                                                                   }
                                                                 },
+                                                                "InMemoryOf": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "for Thakur Seva"
+                                                                  ]
+                                                                },
+                                                                "donationAmount": {
+                                                                  "type": "string",
+                                                                  "pattern": "^\\d*$",
+                                                                  "example": "123456789"
+                                                                },
+                                                                "transactionType": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "Cash",
+                                                                    "Cheque",
+                                                                    "Bank Transfer",
+                                                                    "DD",
+                                                                    "M.O",
+                                                                    "Kind",
+                                                                    "Electronic Modes"
+                                                                  ]
+                                                                },
+                                                                "donationFor": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "Math",
+                                                                    "Mission"
+                                                                  ]
+                                                                },
+                                                                "ddch_number": {
+                                                                  "type": "string"
+                                                                },
+                                                                "ddch_date": {
+                                                                  "type": "string",
+                                                                  "format": "date"
+                                                                },
+                                                                "bankName": {
+                                                                  "type": "string"
+                                                                },
                                                                 "receipt_detail": {
                                                                   "type": "object",
                                                                   "properties": {
@@ -15880,7 +16192,7 @@
                                                                               "type": "string",
                                                                               "format": "date"
                                                                             },
-                                                                            "user": {
+                                                                            "createdby": {
                                                                               "type": "object",
                                                                               "properties": {
                                                                                 "data": {
@@ -16233,40 +16545,6 @@
                                                                     }
                                                                   }
                                                                 },
-                                                                "purposeForDonation": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Charity"
-                                                                  ]
-                                                                },
-                                                                "donationAmount": {
-                                                                  "type": "string",
-                                                                  "pattern": "^\\d*$",
-                                                                  "example": "123456789"
-                                                                },
-                                                                "transactionType": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Cash",
-                                                                    "Cheque"
-                                                                  ]
-                                                                },
-                                                                "donationFor": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Kind Heart"
-                                                                  ]
-                                                                },
-                                                                "ddch_number": {
-                                                                  "type": "string"
-                                                                },
-                                                                "ddch_date": {
-                                                                  "type": "string",
-                                                                  "format": "date"
-                                                                },
-                                                                "bankName": {
-                                                                  "type": "string"
-                                                                },
                                                                 "createdAt": {
                                                                   "type": "string",
                                                                   "format": "date-time"
@@ -16348,6 +16626,7 @@
                                                     "type": "string",
                                                     "enum": [
                                                       "approved",
+                                                      "pending",
                                                       "rejected"
                                                     ]
                                                   },
@@ -16391,6 +16670,10 @@
                                                         }
                                                       }
                                                     }
+                                                  },
+                                                  "email": {
+                                                    "type": "string",
+                                                    "format": "email"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",
@@ -16691,7 +16974,7 @@
                 "type": "string",
                 "format": "date"
               },
-              "user": {
+              "createdby": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -16776,7 +17059,7 @@
             "type": "string",
             "format": "date"
           },
-          "user": {
+          "createdby": {
             "type": "object",
             "properties": {
               "data": {
@@ -17262,7 +17545,7 @@
                                       "type": "string",
                                       "format": "date"
                                     },
-                                    "user": {
+                                    "createdby": {
                                       "type": "object",
                                       "properties": {
                                         "data": {
@@ -18508,6 +18791,7 @@
                                                                 "type": "string",
                                                                 "enum": [
                                                                   "approved",
+                                                                  "pending",
                                                                   "rejected"
                                                                 ]
                                                               },
@@ -18551,6 +18835,10 @@
                                                                     }
                                                                   }
                                                                 }
+                                                              },
+                                                              "email": {
+                                                                "type": "string",
+                                                                "format": "email"
                                                               },
                                                               "createdAt": {
                                                                 "type": "string",
@@ -18604,6 +18892,46 @@
                                                       }
                                                     }
                                                   },
+                                                  "InMemoryOf": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "for Thakur Seva"
+                                                    ]
+                                                  },
+                                                  "donationAmount": {
+                                                    "type": "string",
+                                                    "pattern": "^\\d*$",
+                                                    "example": "123456789"
+                                                  },
+                                                  "transactionType": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "Cash",
+                                                      "Cheque",
+                                                      "Bank Transfer",
+                                                      "DD",
+                                                      "M.O",
+                                                      "Kind",
+                                                      "Electronic Modes"
+                                                    ]
+                                                  },
+                                                  "donationFor": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "Math",
+                                                      "Mission"
+                                                    ]
+                                                  },
+                                                  "ddch_number": {
+                                                    "type": "string"
+                                                  },
+                                                  "ddch_date": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                  },
+                                                  "bankName": {
+                                                    "type": "string"
+                                                  },
                                                   "receipt_detail": {
                                                     "type": "object",
                                                     "properties": {
@@ -18620,40 +18948,6 @@
                                                         }
                                                       }
                                                     }
-                                                  },
-                                                  "purposeForDonation": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "Charity"
-                                                    ]
-                                                  },
-                                                  "donationAmount": {
-                                                    "type": "string",
-                                                    "pattern": "^\\d*$",
-                                                    "example": "123456789"
-                                                  },
-                                                  "transactionType": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "Cash",
-                                                      "Cheque"
-                                                    ]
-                                                  },
-                                                  "donationFor": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "Kind Heart"
-                                                    ]
-                                                  },
-                                                  "ddch_number": {
-                                                    "type": "string"
-                                                  },
-                                                  "ddch_date": {
-                                                    "type": "string",
-                                                    "format": "date"
-                                                  },
-                                                  "bankName": {
-                                                    "type": "string"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",
@@ -20064,6 +20358,46 @@
                                                                                                                       }
                                                                                                                     }
                                                                                                                   },
+                                                                                                                  "InMemoryOf": {
+                                                                                                                    "type": "string",
+                                                                                                                    "enum": [
+                                                                                                                      "for Thakur Seva"
+                                                                                                                    ]
+                                                                                                                  },
+                                                                                                                  "donationAmount": {
+                                                                                                                    "type": "string",
+                                                                                                                    "pattern": "^\\d*$",
+                                                                                                                    "example": "123456789"
+                                                                                                                  },
+                                                                                                                  "transactionType": {
+                                                                                                                    "type": "string",
+                                                                                                                    "enum": [
+                                                                                                                      "Cash",
+                                                                                                                      "Cheque",
+                                                                                                                      "Bank Transfer",
+                                                                                                                      "DD",
+                                                                                                                      "M.O",
+                                                                                                                      "Kind",
+                                                                                                                      "Electronic Modes"
+                                                                                                                    ]
+                                                                                                                  },
+                                                                                                                  "donationFor": {
+                                                                                                                    "type": "string",
+                                                                                                                    "enum": [
+                                                                                                                      "Math",
+                                                                                                                      "Mission"
+                                                                                                                    ]
+                                                                                                                  },
+                                                                                                                  "ddch_number": {
+                                                                                                                    "type": "string"
+                                                                                                                  },
+                                                                                                                  "ddch_date": {
+                                                                                                                    "type": "string",
+                                                                                                                    "format": "date"
+                                                                                                                  },
+                                                                                                                  "bankName": {
+                                                                                                                    "type": "string"
+                                                                                                                  },
                                                                                                                   "receipt_detail": {
                                                                                                                     "type": "object",
                                                                                                                     "properties": {
@@ -20083,7 +20417,7 @@
                                                                                                                                 "type": "string",
                                                                                                                                 "format": "date"
                                                                                                                               },
-                                                                                                                              "user": {
+                                                                                                                              "createdby": {
                                                                                                                                 "type": "object",
                                                                                                                                 "properties": {
                                                                                                                                   "data": {
@@ -20436,40 +20770,6 @@
                                                                                                                       }
                                                                                                                     }
                                                                                                                   },
-                                                                                                                  "purposeForDonation": {
-                                                                                                                    "type": "string",
-                                                                                                                    "enum": [
-                                                                                                                      "Charity"
-                                                                                                                    ]
-                                                                                                                  },
-                                                                                                                  "donationAmount": {
-                                                                                                                    "type": "string",
-                                                                                                                    "pattern": "^\\d*$",
-                                                                                                                    "example": "123456789"
-                                                                                                                  },
-                                                                                                                  "transactionType": {
-                                                                                                                    "type": "string",
-                                                                                                                    "enum": [
-                                                                                                                      "Cash",
-                                                                                                                      "Cheque"
-                                                                                                                    ]
-                                                                                                                  },
-                                                                                                                  "donationFor": {
-                                                                                                                    "type": "string",
-                                                                                                                    "enum": [
-                                                                                                                      "Kind Heart"
-                                                                                                                    ]
-                                                                                                                  },
-                                                                                                                  "ddch_number": {
-                                                                                                                    "type": "string"
-                                                                                                                  },
-                                                                                                                  "ddch_date": {
-                                                                                                                    "type": "string",
-                                                                                                                    "format": "date"
-                                                                                                                  },
-                                                                                                                  "bankName": {
-                                                                                                                    "type": "string"
-                                                                                                                  },
                                                                                                                   "createdAt": {
                                                                                                                     "type": "string",
                                                                                                                     "format": "date-time"
@@ -20551,6 +20851,7 @@
                                                                                                       "type": "string",
                                                                                                       "enum": [
                                                                                                         "approved",
+                                                                                                        "pending",
                                                                                                         "rejected"
                                                                                                       ]
                                                                                                     },
@@ -20594,6 +20895,10 @@
                                                                                                           }
                                                                                                         }
                                                                                                       }
+                                                                                                    },
+                                                                                                    "email": {
+                                                                                                      "type": "string",
+                                                                                                      "format": "email"
                                                                                                     },
                                                                                                     "createdAt": {
                                                                                                       "type": "string",
@@ -22535,6 +22840,46 @@
                                                                     }
                                                                   }
                                                                 },
+                                                                "InMemoryOf": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "for Thakur Seva"
+                                                                  ]
+                                                                },
+                                                                "donationAmount": {
+                                                                  "type": "string",
+                                                                  "pattern": "^\\d*$",
+                                                                  "example": "123456789"
+                                                                },
+                                                                "transactionType": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "Cash",
+                                                                    "Cheque",
+                                                                    "Bank Transfer",
+                                                                    "DD",
+                                                                    "M.O",
+                                                                    "Kind",
+                                                                    "Electronic Modes"
+                                                                  ]
+                                                                },
+                                                                "donationFor": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "Math",
+                                                                    "Mission"
+                                                                  ]
+                                                                },
+                                                                "ddch_number": {
+                                                                  "type": "string"
+                                                                },
+                                                                "ddch_date": {
+                                                                  "type": "string",
+                                                                  "format": "date"
+                                                                },
+                                                                "bankName": {
+                                                                  "type": "string"
+                                                                },
                                                                 "receipt_detail": {
                                                                   "type": "object",
                                                                   "properties": {
@@ -22554,7 +22899,7 @@
                                                                               "type": "string",
                                                                               "format": "date"
                                                                             },
-                                                                            "user": {
+                                                                            "createdby": {
                                                                               "type": "object",
                                                                               "properties": {
                                                                                 "data": {
@@ -22907,40 +23252,6 @@
                                                                     }
                                                                   }
                                                                 },
-                                                                "purposeForDonation": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Charity"
-                                                                  ]
-                                                                },
-                                                                "donationAmount": {
-                                                                  "type": "string",
-                                                                  "pattern": "^\\d*$",
-                                                                  "example": "123456789"
-                                                                },
-                                                                "transactionType": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Cash",
-                                                                    "Cheque"
-                                                                  ]
-                                                                },
-                                                                "donationFor": {
-                                                                  "type": "string",
-                                                                  "enum": [
-                                                                    "Kind Heart"
-                                                                  ]
-                                                                },
-                                                                "ddch_number": {
-                                                                  "type": "string"
-                                                                },
-                                                                "ddch_date": {
-                                                                  "type": "string",
-                                                                  "format": "date"
-                                                                },
-                                                                "bankName": {
-                                                                  "type": "string"
-                                                                },
                                                                 "createdAt": {
                                                                   "type": "string",
                                                                   "format": "date-time"
@@ -23022,6 +23333,7 @@
                                                     "type": "string",
                                                     "enum": [
                                                       "approved",
+                                                      "pending",
                                                       "rejected"
                                                     ]
                                                   },
@@ -23065,6 +23377,10 @@
                                                         }
                                                       }
                                                     }
+                                                  },
+                                                  "email": {
+                                                    "type": "string",
+                                                    "format": "email"
                                                   },
                                                   "createdAt": {
                                                     "type": "string",

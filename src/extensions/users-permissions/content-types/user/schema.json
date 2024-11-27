@@ -77,7 +77,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::receipt-detail.receipt-detail",
-      "mappedBy": "user"
+      "mappedBy": "createdby"
     }
   }
 }

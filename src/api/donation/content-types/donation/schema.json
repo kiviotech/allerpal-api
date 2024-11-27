@@ -18,16 +18,10 @@
       "target": "api::guest-detail.guest-detail",
       "inversedBy": "donations"
     },
-    "receipt_detail": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::receipt-detail.receipt-detail",
-      "inversedBy": "donations"
-    },
-    "purposeForDonation": {
+    "InMemoryOf": {
       "type": "enumeration",
       "enum": [
-        "Charity"
+        "for Thakur Seva"
       ]
     },
     "donationAmount": {
@@ -37,13 +31,19 @@
       "type": "enumeration",
       "enum": [
         "Cash",
-        "Cheque"
+        "Cheque",
+        "Bank Transfer",
+        "DD",
+        "M.O",
+        "Kind",
+        "Electronic Modes"
       ]
     },
     "donationFor": {
       "type": "enumeration",
       "enum": [
-        "Kind Heart"
+        "Math",
+        "Mission"
       ]
     },
     "ddch_number": {
@@ -54,6 +54,12 @@
     },
     "bankName": {
       "type": "text"
+    },
+    "receipt_detail": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::receipt-detail.receipt-detail",
+      "inversedBy": "donations"
     }
   }
 }

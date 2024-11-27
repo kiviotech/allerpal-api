@@ -15,12 +15,12 @@
     "Receipt_number": {
       "type": "string",
       "required": false,
-      "unique": true
+      "unique": false
     },
     "donation_date": {
       "type": "date"
     },
-    "user": {
+    "createdby": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",

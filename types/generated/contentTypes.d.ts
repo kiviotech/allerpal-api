@@ -923,28 +923,93 @@ export interface ApiDeekshaDeeksha extends Schema.CollectionType {
   };
   attributes: {
     Name: Attribute.String;
-    Care_Of: Attribute.String;
     Address: Attribute.Text;
-    PAN: Attribute.String;
-    Aadhar: Attribute.BigInteger;
-    Phone_no: Attribute.BigInteger;
-    Email: Attribute.Email;
-    Age: Attribute.BigInteger;
-    Education_Qualification: Attribute.String;
-    Occupation: Attribute.String;
-    Hearing_Problems: Attribute.String;
-    Disabilities: Attribute.String;
-    Prior_Deeksha_Experience: Attribute.String;
-    Books_read: Attribute.Text;
-    Sadhu_Reference: Attribute.String;
-    Deeksha_Wish_Duration: Attribute.String;
-    Family_Deeksha: Attribute.Text;
-    Deeksha_Practice: Attribute.String;
-    Date: Attribute.Date;
     Pincode: Attribute.BigInteger;
     District: Attribute.String;
     State: Attribute.String;
     Country: Attribute.String;
+    Phone_no: Attribute.BigInteger;
+    Email: Attribute.Email;
+    Aadhar_no: Attribute.BigInteger;
+    PAN_no: Attribute.String;
+    Education: Attribute.Enumeration<
+      [
+        'Early childhood education',
+        'Secondary education',
+        'Higher education',
+        'Undergraduate degree',
+        'Post-graduate degree'
+      ]
+    >;
+    Occupation: Attribute.Text;
+    Languages_known: Attribute.Enumeration<
+      [
+        'English',
+        'Bengali',
+        'Gujarati',
+        'Hindi',
+        'Kannada',
+        'Malayalam',
+        'Punjabi',
+        'Tamil',
+        'Telugu',
+        'Urdu',
+        'null'
+      ]
+    >;
+    Spouse_consent: Attribute.Boolean;
+    Initiated_by_anyone: Attribute.Boolean;
+    Family_Deeksha: Attribute.Boolean;
+    Name_family_deeksha: Attribute.String;
+    Relation: Attribute.Enumeration<
+      [
+        'Husband',
+        'Wife',
+        'Son',
+        'Daughter',
+        'Father',
+        'Mother',
+        'Mother-in-law',
+        'Father-in-law',
+        'Grandfather',
+        'Grandmother',
+        'null'
+      ]
+    >;
+    Family_Deeksha_Guru: Attribute.Enumeration<
+      ['Guru1', 'Guru2', 'Guru3', 'Guru4']
+    >;
+    Known_Guruji: Attribute.Boolean;
+    Known_Guru_name: Attribute.Enumeration<
+      ['Guru 1', 'Guru 2', 'Guru 3', 'Guru 4', 'null']
+    >;
+    Known_Guru_centre: Attribute.Enumeration<
+      ['Centre1', 'Centre2', 'Centre3', 'Centre4', 'null']
+    >;
+    Waiting_for_Deeksha: Attribute.Integer;
+    Books_read: Attribute.String;
+    Practice_Deeksha: Attribute.Boolean;
+    Disabilities: Attribute.Boolean;
+    Hearing_Problems: Attribute.Boolean;
+    Booklet_language: Attribute.Enumeration<
+      [
+        'English',
+        'Hindi',
+        'Tamil',
+        'Telugu',
+        'Kannada',
+        'Malayalam',
+        '"Bengali',
+        'Gujarati',
+        'Marathi',
+        'Punjabi'
+      ]
+    >;
+    Gender: Attribute.String;
+    Marital_status: Attribute.Enumeration<
+      ['Unmarried', 'Married', 'Widow', 'Widower']
+    >;
+    Care_Of: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -980,18 +1045,28 @@ export interface ApiDonationDonation extends Schema.CollectionType {
       'manyToOne',
       'api::guest-detail.guest-detail'
     >;
+    InMemoryOf: Attribute.Enumeration<['for Thakur Seva']>;
+    donationAmount: Attribute.BigInteger;
+    transactionType: Attribute.Enumeration<
+      [
+        'Cash',
+        'Cheque',
+        'Bank Transfer',
+        'DD',
+        'M.O',
+        'Kind',
+        'Electronic Modes'
+      ]
+    >;
+    donationFor: Attribute.Enumeration<['Math', 'Mission']>;
+    ddch_number: Attribute.String;
+    ddch_date: Attribute.Date;
+    bankName: Attribute.Text;
     receipt_detail: Attribute.Relation<
       'api::donation.donation',
       'manyToOne',
       'api::receipt-detail.receipt-detail'
     >;
-    purposeForDonation: Attribute.Enumeration<['Charity']>;
-    donationAmount: Attribute.BigInteger;
-    transactionType: Attribute.Enumeration<['Cash', 'Cheque']>;
-    donationFor: Attribute.Enumeration<['Kind Heart']>;
-    ddch_number: Attribute.String;
-    ddch_date: Attribute.Date;
-    bankName: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1080,7 +1155,7 @@ export interface ApiGuestDetailGuestDetail extends Schema.CollectionType {
     >;
     age: Attribute.Integer;
     gender: Attribute.Enumeration<['M', 'F', 'Other']>;
-    status: Attribute.Enumeration<['approved', 'rejected']>;
+    status: Attribute.Enumeration<['approved', 'pending', 'rejected']>;
     relationship: Attribute.Enumeration<
       [
         'mother',
@@ -1108,6 +1183,7 @@ export interface ApiGuestDetailGuestDetail extends Schema.CollectionType {
       'manyToOne',
       'api::room-allocation.room-allocation'
     >;
+    email: Attribute.Email;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1219,9 +1295,9 @@ export interface ApiReceiptDetailReceiptDetail extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    Receipt_number: Attribute.String & Attribute.Unique;
+    Receipt_number: Attribute.String;
     donation_date: Attribute.Date;
-    user: Attribute.Relation<
+    createdby: Attribute.Relation<
       'api::receipt-detail.receipt-detail',
       'manyToOne',
       'plugin::users-permissions.user'
