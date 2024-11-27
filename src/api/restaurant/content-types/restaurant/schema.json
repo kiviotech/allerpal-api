@@ -55,6 +55,11 @@
       "relation": "oneToMany",
       "target": "api::menu.menu",
       "mappedBy": "restaurant"
+    },
+    "favourites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

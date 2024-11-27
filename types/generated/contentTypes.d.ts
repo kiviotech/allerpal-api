@@ -533,10 +533,6 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
   };
   attributes: {
     name: Schema.Attribute.String;
-    profile_allergies: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::profile-allergy.profile-allergy'
-    >;
     user_allergy: Schema.Attribute.Relation<
       'manyToOne',
       'api::user-allergy.user-allergy'
@@ -545,6 +541,10 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
     Allergeimage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
+    >;
+    profile_allergy: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::profile-allergy.profile-allergy'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -700,7 +700,7 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
   attributes: {
     name: Schema.Attribute.String;
     relation: Schema.Attribute.Enumeration<
-      ['children', 'partner', 'friend', 'family']
+      ['myself', 'children', 'partner', 'friend', 'family']
     >;
     user: Schema.Attribute.Relation<
       'manyToOne',
@@ -748,7 +748,7 @@ export interface ApiProfileAllergyProfileAllergy
   attributes: {
     profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
     severity: Schema.Attribute.Enumeration<['mild', 'moderate', 'severe']>;
-    allergy: Schema.Attribute.Relation<'manyToOne', 'api::allergy.allergy'>;
+    allergies: Schema.Attribute.Relation<'oneToMany', 'api::allergy.allergy'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -791,6 +791,10 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
       true
     >;
     menus: Schema.Attribute.Relation<'oneToMany', 'api::menu.menu'>;
+    favourites: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

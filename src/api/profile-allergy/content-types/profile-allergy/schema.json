@@ -26,11 +26,11 @@
         "severe"
       ]
     },
-    "allergy": {
+    "allergies": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::allergy.allergy",
-      "inversedBy": "profile_allergies"
+      "mappedBy": "profile_allergy"
     }
   }
 }

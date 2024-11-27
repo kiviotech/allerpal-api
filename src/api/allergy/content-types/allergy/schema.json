@@ -15,12 +15,6 @@
     "name": {
       "type": "string"
     },
-    "profile_allergies": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::profile-allergy.profile-allergy",
-      "mappedBy": "allergy"
-    },
     "user_allergy": {
       "type": "relation",
       "relation": "manyToOne",
@@ -39,6 +33,12 @@
       ],
       "type": "media",
       "multiple": true
+    },
+    "profile_allergy": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile-allergy.profile-allergy",
+      "inversedBy": "allergies"
     }
   }
 }
