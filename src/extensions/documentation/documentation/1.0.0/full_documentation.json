@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-11-27T12:58:06.416Z"
+    "x-generation-date": "2024-11-27T14:31:46.373Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -8486,9 +8486,7 @@
                             "enum": [
                               "myself",
                               "children",
-                              "partner",
-                              "friend",
-                              "family"
+                              "partner"
                             ]
                           },
                           "user": {
@@ -12175,9 +12173,7 @@
                           "enum": [
                             "myself",
                             "children",
-                            "partner",
-                            "friend",
-                            "family"
+                            "partner"
                           ]
                         },
                         "user": {
@@ -14631,9 +14627,7 @@
                               "enum": [
                                 "myself",
                                 "children",
-                                "partner",
-                                "friend",
-                                "family"
+                                "partner"
                               ]
                             },
                             "user": {
@@ -17002,9 +16996,7 @@
                 "enum": [
                   "myself",
                   "children",
-                  "partner",
-                  "friend",
-                  "family"
+                  "partner"
                 ]
               },
               "user": {
@@ -17144,9 +17136,7 @@
             "enum": [
               "myself",
               "children",
-              "partner",
-              "friend",
-              "family"
+              "partner"
             ]
           },
           "user": {
@@ -17615,9 +17605,7 @@
                       "enum": [
                         "myself",
                         "children",
-                        "partner",
-                        "friend",
-                        "family"
+                        "partner"
                       ]
                     },
                     "user": {
@@ -19739,9 +19727,7 @@
                 "enum": [
                   "myself",
                   "children",
-                  "partner",
-                  "friend",
-                  "family"
+                  "partner"
                 ]
               },
               "user": {
@@ -22277,9 +22263,7 @@
                                 "enum": [
                                   "myself",
                                   "children",
-                                  "partner",
-                                  "friend",
-                                  "family"
+                                  "partner"
                                 ]
                               },
                               "user": {
@@ -24875,9 +24859,7 @@
                           "enum": [
                             "myself",
                             "children",
-                            "partner",
-                            "friend",
-                            "family"
+                            "partner"
                           ]
                         },
                         "user": {
@@ -27401,9 +27383,7 @@
                 "enum": [
                   "myself",
                   "children",
-                  "partner",
-                  "friend",
-                  "family"
+                  "partner"
                 ]
               },
               "user": {
@@ -30278,9 +30258,7 @@
                         "enum": [
                           "myself",
                           "children",
-                          "partner",
-                          "friend",
-                          "family"
+                          "partner"
                         ]
                       },
                       "user": {

@@ -699,9 +699,7 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
   };
   attributes: {
     name: Schema.Attribute.String;
-    relation: Schema.Attribute.Enumeration<
-      ['myself', 'children', 'partner', 'friend', 'family']
-    >;
+    relation: Schema.Attribute.Enumeration<['myself', 'children', 'partner']>;
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
