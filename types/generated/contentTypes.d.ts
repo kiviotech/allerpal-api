@@ -999,7 +999,7 @@ export interface ApiDeekshaDeeksha extends Schema.CollectionType {
         'Telugu',
         'Kannada',
         'Malayalam',
-        '"Bengali',
+        'Bengali',
         'Gujarati',
         'Marathi',
         'Punjabi'

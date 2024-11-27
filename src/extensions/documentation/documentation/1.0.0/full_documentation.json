@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-11-27T14:01:57.123Z"
+    "x-generation-date": "2024-11-27T14:19:06.796Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5048,7 +5048,7 @@
                   "Telugu",
                   "Kannada",
                   "Malayalam",
-                  "\"Bengali",
+                  "Bengali",
                   "Gujarati",
                   "Marathi",
                   "Punjabi"
@@ -5272,7 +5272,7 @@
               "Telugu",
               "Kannada",
               "Malayalam",
-              "\"Bengali",
+              "Bengali",
               "Gujarati",
               "Marathi",
               "Punjabi"
