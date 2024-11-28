@@ -60,6 +60,14 @@
       "relation": "manyToOne",
       "target": "api::receipt-detail.receipt-detail",
       "inversedBy": "donations"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "completed",
+        "pending",
+        "cancelled"
+      ]
     }
   }
 }

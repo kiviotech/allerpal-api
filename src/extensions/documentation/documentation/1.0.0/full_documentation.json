@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-11-27T14:19:06.796Z"
+    "x-generation-date": "2024-11-28T13:43:19.433Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1755,6 +1755,14 @@
                                                                                               }
                                                                                             }
                                                                                           }
+                                                                                        },
+                                                                                        "status": {
+                                                                                          "type": "string",
+                                                                                          "enum": [
+                                                                                            "completed",
+                                                                                            "pending",
+                                                                                            "cancelled"
+                                                                                          ]
                                                                                         },
                                                                                         "createdAt": {
                                                                                           "type": "string",
@@ -4348,6 +4356,14 @@
                                                                                   }
                                                                                 }
                                                                               },
+                                                                              "status": {
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                  "completed",
+                                                                                  "pending",
+                                                                                  "cancelled"
+                                                                                ]
+                                                                              },
                                                                               "createdAt": {
                                                                                 "type": "string",
                                                                                 "format": "date-time"
@@ -5685,6 +5701,14 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "completed",
+                  "pending",
+                  "cancelled"
+                ]
               }
             }
           }
@@ -6460,6 +6484,14 @@
                                           }
                                         }
                                       }
+                                    },
+                                    "status": {
+                                      "type": "string",
+                                      "enum": [
+                                        "completed",
+                                        "pending",
+                                        "cancelled"
+                                      ]
                                     },
                                     "createdAt": {
                                       "type": "string",
@@ -7835,6 +7867,14 @@
                 }
               }
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "pending",
+              "cancelled"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -9450,6 +9490,14 @@
                                                                                                                           }
                                                                                                                         }
                                                                                                                       }
+                                                                                                                    },
+                                                                                                                    "status": {
+                                                                                                                      "type": "string",
+                                                                                                                      "enum": [
+                                                                                                                        "completed",
+                                                                                                                        "pending",
+                                                                                                                        "cancelled"
+                                                                                                                      ]
                                                                                                                     },
                                                                                                                     "createdAt": {
                                                                                                                       "type": "string",
@@ -12300,6 +12348,14 @@
                             }
                           }
                         },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "completed",
+                            "pending",
+                            "cancelled"
+                          ]
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -14191,6 +14247,14 @@
                                                                                                 }
                                                                                               }
                                                                                             }
+                                                                                          },
+                                                                                          "status": {
+                                                                                            "type": "string",
+                                                                                            "enum": [
+                                                                                              "completed",
+                                                                                              "pending",
+                                                                                              "cancelled"
+                                                                                            ]
                                                                                           },
                                                                                           "createdAt": {
                                                                                             "type": "string",
@@ -16544,6 +16608,14 @@
                                                                       }
                                                                     }
                                                                   }
+                                                                },
+                                                                "status": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "completed",
+                                                                    "pending",
+                                                                    "cancelled"
+                                                                  ]
                                                                 },
                                                                 "createdAt": {
                                                                   "type": "string",
@@ -18949,6 +19021,14 @@
                                                       }
                                                     }
                                                   },
+                                                  "status": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                      "completed",
+                                                      "pending",
+                                                      "cancelled"
+                                                    ]
+                                                  },
                                                   "createdAt": {
                                                     "type": "string",
                                                     "format": "date-time"
@@ -20769,6 +20849,14 @@
                                                                                                                         }
                                                                                                                       }
                                                                                                                     }
+                                                                                                                  },
+                                                                                                                  "status": {
+                                                                                                                    "type": "string",
+                                                                                                                    "enum": [
+                                                                                                                      "completed",
+                                                                                                                      "pending",
+                                                                                                                      "cancelled"
+                                                                                                                    ]
                                                                                                                   },
                                                                                                                   "createdAt": {
                                                                                                                     "type": "string",
@@ -23251,6 +23339,14 @@
                                                                       }
                                                                     }
                                                                   }
+                                                                },
+                                                                "status": {
+                                                                  "type": "string",
+                                                                  "enum": [
+                                                                    "completed",
+                                                                    "pending",
+                                                                    "cancelled"
+                                                                  ]
                                                                 },
                                                                 "createdAt": {
                                                                   "type": "string",
