@@ -561,6 +561,43 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCuisineCuisine extends Struct.CollectionTypeSchema {
+  collectionName: 'cuisines';
+  info: {
+    singularName: 'cuisine';
+    pluralName: 'cuisines';
+    displayName: 'Cuisine';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cuisine_type: Schema.Attribute.String;
+    cuisine_description: Schema.Attribute.Text;
+    menu_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
+    cuisine_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cuisine.cuisine'
+    >;
+  };
+}
+
 export interface ApiFeatureFeature extends Struct.SingleTypeSchema {
   collectionName: 'features';
   info: {
@@ -671,6 +708,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    cuisine: Schema.Attribute.Relation<'manyToOne', 'api::cuisine.cuisine'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1293,6 +1331,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
       'api::allergy.allergy': ApiAllergyAllergy;
+      'api::cuisine.cuisine': ApiCuisineCuisine;
       'api::feature.feature': ApiFeatureFeature;
       'api::global.global': ApiGlobalGlobal;
       'api::menu.menu': ApiMenuMenu;

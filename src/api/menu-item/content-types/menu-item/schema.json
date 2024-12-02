@@ -34,14 +34,21 @@
       "inversedBy": "menu_items"
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "cuisine": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cuisine.cuisine",
+      "inversedBy": "menu_items"
     }
   }
 }
