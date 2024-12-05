@@ -709,6 +709,10 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
       true
     >;
     cuisine: Schema.Attribute.Relation<'manyToOne', 'api::cuisine.cuisine'>;
+    restaurant: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::restaurant.restaurant'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -830,6 +834,10 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
     favourites: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
+    >;
+    menu_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
