@@ -598,6 +598,45 @@ export interface ApiCuisineCuisine extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFavouriteFavourite extends Struct.CollectionTypeSchema {
+  collectionName: 'favourites';
+  info: {
+    singularName: 'favourite';
+    pluralName: 'favourites';
+    displayName: 'Favourites';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    menu_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
+    restaurants: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::restaurant.restaurant'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::favourite.favourite'
+    >;
+  };
+}
+
 export interface ApiFeatureFeature extends Struct.SingleTypeSchema {
   collectionName: 'features';
   info: {
@@ -712,6 +751,10 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     restaurant: Schema.Attribute.Relation<
       'manyToOne',
       'api::restaurant.restaurant'
+    >;
+    favourite: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::favourite.favourite'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -838,6 +881,10 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
     menu_items: Schema.Attribute.Relation<
       'oneToMany',
       'api::menu-item.menu-item'
+    >;
+    favourite: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::favourite.favourite'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -1340,6 +1387,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::allergy.allergy': ApiAllergyAllergy;
       'api::cuisine.cuisine': ApiCuisineCuisine;
+      'api::favourite.favourite': ApiFavouriteFavourite;
       'api::feature.feature': ApiFeatureFeature;
       'api::global.global': ApiGlobalGlobal;
       'api::menu.menu': ApiMenuMenu;
