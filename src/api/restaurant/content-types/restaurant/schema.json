@@ -66,6 +66,12 @@
       "relation": "oneToMany",
       "target": "api::menu-item.menu-item",
       "mappedBy": "restaurant"
+    },
+    "favourite": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::favourite.favourite",
+      "inversedBy": "restaurants"
     }
   }
 }

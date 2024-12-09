@@ -55,6 +55,12 @@
       "relation": "manyToOne",
       "target": "api::restaurant.restaurant",
       "inversedBy": "menu_items"
+    },
+    "favourite": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::favourite.favourite",
+      "inversedBy": "menu_items"
     }
   }
 }
