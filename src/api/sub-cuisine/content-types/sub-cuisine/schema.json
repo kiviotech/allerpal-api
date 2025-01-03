@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_cuisines",
+  "info": {
+    "singularName": "sub-cuisine",
+    "pluralName": "sub-cuisines",
+    "displayName": "SubCuisine"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sub_cuisine_name": {
+      "type": "string"
+    },
+    "cuisine": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cuisine.cuisine",
+      "inversedBy": "sub_cuisines"
+    },
+    "menu_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::menu-item.menu-item",
+      "mappedBy": "sub_cuisine"
+    }
+  }
+}

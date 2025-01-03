@@ -18,21 +18,34 @@
     "cuisine_description": {
       "type": "text"
     },
-    "menu_items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::menu-item.menu-item",
-      "mappedBy": "cuisine"
-    },
     "cuisine_image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "sub_cuisines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-cuisine.sub-cuisine",
+      "mappedBy": "cuisine"
+    },
+    "menu": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::menu.menu",
+      "inversedBy": "cuisines"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "cuisines"
     }
   }
 }

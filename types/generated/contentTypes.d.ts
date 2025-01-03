@@ -546,6 +546,9 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::profile-allergy.profile-allergy'
     >;
+    Allergen_icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -557,6 +560,41 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::allergy.allergy'
+    >;
+  };
+}
+
+export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'Article';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    author_name: Schema.Attribute.String;
+    published_date: Schema.Attribute.Date;
+    article_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    article_content: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
     >;
   };
 }
@@ -575,13 +613,18 @@ export interface ApiCuisineCuisine extends Struct.CollectionTypeSchema {
   attributes: {
     cuisine_type: Schema.Attribute.String;
     cuisine_description: Schema.Attribute.Text;
-    menu_items: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::menu-item.menu-item'
-    >;
     cuisine_image: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
+    >;
+    sub_cuisines: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-cuisine.sub-cuisine'
+    >;
+    menu: Schema.Attribute.Relation<'manyToOne', 'api::menu.menu'>;
+    restaurant: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::restaurant.restaurant'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -713,6 +756,7 @@ export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::menu-item.menu-item'
     >;
+    cuisines: Schema.Attribute.Relation<'oneToMany', 'api::cuisine.cuisine'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -747,7 +791,6 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    cuisine: Schema.Attribute.Relation<'manyToOne', 'api::cuisine.cuisine'>;
     restaurant: Schema.Attribute.Relation<
       'manyToOne',
       'api::restaurant.restaurant'
@@ -755,6 +798,10 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     favourite: Schema.Attribute.Relation<
       'manyToOne',
       'api::favourite.favourite'
+    >;
+    sub_cuisine: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::sub-cuisine.sub-cuisine'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -784,7 +831,9 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
   };
   attributes: {
     name: Schema.Attribute.String;
-    relation: Schema.Attribute.Enumeration<['myself', 'children', 'partner']>;
+    relation: Schema.Attribute.Enumeration<
+      ['myself', 'my child', 'my partner']
+    >;
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -874,10 +923,6 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
       true
     >;
     menus: Schema.Attribute.Relation<'oneToMany', 'api::menu.menu'>;
-    favourites: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
     menu_items: Schema.Attribute.Relation<
       'oneToMany',
       'api::menu-item.menu-item'
@@ -886,6 +931,7 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::favourite.favourite'
     >;
+    cuisines: Schema.Attribute.Relation<'oneToMany', 'api::cuisine.cuisine'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -936,6 +982,38 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
+  };
+}
+
+export interface ApiSubCuisineSubCuisine extends Struct.CollectionTypeSchema {
+  collectionName: 'sub_cuisines';
+  info: {
+    singularName: 'sub-cuisine';
+    pluralName: 'sub-cuisines';
+    displayName: 'SubCuisine';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    sub_cuisine_name: Schema.Attribute.String;
+    cuisine: Schema.Attribute.Relation<'manyToOne', 'api::cuisine.cuisine'>;
+    menu_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-item.menu-item'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-cuisine.sub-cuisine'
+    >;
   };
 }
 
@@ -1386,6 +1464,7 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
       'api::allergy.allergy': ApiAllergyAllergy;
+      'api::article.article': ApiArticleArticle;
       'api::cuisine.cuisine': ApiCuisineCuisine;
       'api::favourite.favourite': ApiFavouriteFavourite;
       'api::feature.feature': ApiFeatureFeature;
@@ -1396,6 +1475,7 @@ declare module '@strapi/strapi' {
       'api::profile-allergy.profile-allergy': ApiProfileAllergyProfileAllergy;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
       'api::review.review': ApiReviewReview;
+      'api::sub-cuisine.sub-cuisine': ApiSubCuisineSubCuisine;
       'api::table-booking.table-booking': ApiTableBookingTableBooking;
       'api::user-allergy.user-allergy': ApiUserAllergyUserAllergy;
       'admin::permission': AdminPermission;

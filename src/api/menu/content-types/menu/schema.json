@@ -30,6 +30,12 @@
       "relation": "oneToMany",
       "target": "api::menu-item.menu-item",
       "mappedBy": "menu"
+    },
+    "cuisines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cuisine.cuisine",
+      "mappedBy": "menu"
     }
   }
 }

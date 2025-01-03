@@ -44,12 +44,6 @@
         "audios"
       ]
     },
-    "cuisine": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::cuisine.cuisine",
-      "inversedBy": "menu_items"
-    },
     "restaurant": {
       "type": "relation",
       "relation": "manyToOne",
@@ -60,6 +54,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::favourite.favourite",
+      "inversedBy": "menu_items"
+    },
+    "sub_cuisine": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sub-cuisine.sub-cuisine",
       "inversedBy": "menu_items"
     }
   }
