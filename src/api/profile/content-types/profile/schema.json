@@ -19,8 +19,8 @@
       "type": "enumeration",
       "enum": [
         "myself",
-        "children",
-        "partner"
+        "my child",
+        "my partner"
       ]
     },
     "user": {

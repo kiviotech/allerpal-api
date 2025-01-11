@@ -25,6 +25,23 @@
       "type": "boolean"
     },
     "Allergeimage": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "profile_allergy": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::profile-allergy.profile-allergy",
+      "inversedBy": "allergies"
+    },
+    "Allergen_icon": {
       "allowedTypes": [
         "images",
         "files",
@@ -32,13 +49,7 @@
         "audios"
       ],
       "type": "media",
-      "multiple": true
-    },
-    "profile_allergy": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::profile-allergy.profile-allergy",
-      "inversedBy": "allergies"
+      "multiple": false
     }
   }
 }

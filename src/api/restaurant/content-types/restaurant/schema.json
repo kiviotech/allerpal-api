@@ -56,11 +56,6 @@
       "target": "api::menu.menu",
       "mappedBy": "restaurant"
     },
-    "favourites": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user"
-    },
     "menu_items": {
       "type": "relation",
       "relation": "oneToMany",
@@ -72,6 +67,12 @@
       "relation": "manyToOne",
       "target": "api::favourite.favourite",
       "inversedBy": "restaurants"
+    },
+    "cuisines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cuisine.cuisine",
+      "mappedBy": "restaurant"
     }
   }
 }
