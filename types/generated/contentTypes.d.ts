@@ -827,7 +827,7 @@ export interface ApiProfileProfile extends Struct.CollectionTypeSchema {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Schema.Attribute.String;
@@ -875,7 +875,7 @@ export interface ApiProfileAllergyProfileAllergy
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
@@ -1061,9 +1061,10 @@ export interface ApiUserAllergyUserAllergy extends Struct.CollectionTypeSchema {
     singularName: 'user-allergy';
     pluralName: 'user-allergies';
     displayName: 'User_allergy';
+    description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     user: Schema.Attribute.Relation<
