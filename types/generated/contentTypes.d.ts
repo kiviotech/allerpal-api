@@ -881,6 +881,7 @@ export interface ApiProfileAllergyProfileAllergy
     profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
     severity: Schema.Attribute.Enumeration<['mild', 'moderate', 'severe']>;
     allergies: Schema.Attribute.Relation<'oneToMany', 'api::allergy.allergy'>;
+    excludeMayContain: Schema.Attribute.Boolean;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

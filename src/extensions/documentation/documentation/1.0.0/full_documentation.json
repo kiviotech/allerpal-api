@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-01-23T09:11:52.914Z"
+    "x-generation-date": "2025-02-10T09:15:35.873Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -24,7 +24,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:1402/api",
+      "url": "http://localhost:1337/api",
       "description": "Development server"
     }
   ],
@@ -11136,6 +11136,9 @@
                                     }
                                   }
                                 },
+                                "excludeMayContain": {
+                                  "type": "boolean"
+                                },
                                 "createdAt": {
                                   "type": "string",
                                   "format": "date-time"
@@ -15610,6 +15613,9 @@
                                                             }
                                                           }
                                                         },
+                                                        "excludeMayContain": {
+                                                          "type": "boolean"
+                                                        },
                                                         "createdAt": {
                                                           "type": "string",
                                                           "format": "date-time"
@@ -18638,6 +18644,9 @@
                                 }
                               }
                             }
+                          },
+                          "excludeMayContain": {
+                            "type": "boolean"
                           },
                           "createdAt": {
                             "type": "string",
@@ -23043,6 +23052,9 @@
                                               }
                                             }
                                           },
+                                          "excludeMayContain": {
+                                            "type": "boolean"
+                                          },
                                           "createdAt": {
                                             "type": "string",
                                             "format": "date-time"
@@ -26138,6 +26150,9 @@
                                                     }
                                                   }
                                                 }
+                                              },
+                                              "excludeMayContain": {
+                                                "type": "boolean"
                                               },
                                               "createdAt": {
                                                 "type": "string",
@@ -29530,6 +29545,9 @@
                               }
                             }
                           },
+                          "excludeMayContain": {
+                            "type": "boolean"
+                          },
                           "createdAt": {
                             "type": "string",
                             "format": "date-time"
@@ -31468,6 +31486,9 @@
                   "example": "string or id"
                 }
               },
+              "excludeMayContain": {
+                "type": "boolean"
+              },
               "locale": {
                 "type": "string"
               },
@@ -32461,6 +32482,9 @@
                                       }
                                     }
                                   }
+                                },
+                                "excludeMayContain": {
+                                  "type": "boolean"
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -34379,6 +34403,9 @@
               }
             }
           },
+          "excludeMayContain": {
+            "type": "boolean"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -35617,6 +35644,9 @@
                                                       }
                                                     }
                                                   }
+                                                },
+                                                "excludeMayContain": {
+                                                  "type": "boolean"
                                                 },
                                                 "createdAt": {
                                                   "type": "string",
@@ -38833,6 +38863,9 @@
                                                 }
                                               }
                                             }
+                                          },
+                                          "excludeMayContain": {
+                                            "type": "boolean"
                                           },
                                           "createdAt": {
                                             "type": "string",
@@ -42194,6 +42227,9 @@
                                                                   }
                                                                 }
                                                               },
+                                                              "excludeMayContain": {
+                                                                "type": "boolean"
+                                                              },
                                                               "createdAt": {
                                                                 "type": "string",
                                                                 "format": "date-time"
@@ -44959,6 +44995,9 @@
                                       }
                                     }
                                   }
+                                },
+                                "excludeMayContain": {
+                                  "type": "boolean"
                                 },
                                 "createdAt": {
                                   "type": "string",
@@ -48214,6 +48253,9 @@
                                   }
                                 }
                               }
+                            },
+                            "excludeMayContain": {
+                              "type": "boolean"
                             },
                             "createdAt": {
                               "type": "string",
