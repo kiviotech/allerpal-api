@@ -83,6 +83,12 @@
       "relation": "manyToOne",
       "target": "api::user-allergy.user-allergy",
       "inversedBy": "user"
+    },
+    "inboxxes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::inboxx.inboxx",
+      "mappedBy": "user"
     }
   }
 }

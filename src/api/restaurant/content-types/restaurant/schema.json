@@ -73,6 +73,12 @@
       "relation": "oneToMany",
       "target": "api::cuisine.cuisine",
       "mappedBy": "restaurant"
+    },
+    "inboxxes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::inboxx.inboxx",
+      "mappedBy": "restaurant"
     }
   }
 }

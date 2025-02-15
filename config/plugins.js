@@ -26,7 +26,7 @@ module.exports = ({ env }) => ({
         jwt: {
           expiresIn: "7d", // Set token expiration to 1 minute for testing
         },
-      },
+      }, 
     },
   });
   

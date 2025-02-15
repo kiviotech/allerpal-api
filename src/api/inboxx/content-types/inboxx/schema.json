@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inboxxes",
+  "info": {
+    "singularName": "inboxx",
+    "pluralName": "inboxxes",
+    "displayName": "Inboxx",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "inboxxes"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "inboxxes"
+    },
+    "Subject": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
+      "mappedBy": "inboxx"
+    },
+    "last_message": {
+      "type": "datetime"
+    }
+  }
+}

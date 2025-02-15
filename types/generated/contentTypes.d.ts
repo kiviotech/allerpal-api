@@ -476,6 +476,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'api::user-allergy.user-allergy'
     >;
+    inboxxes: Schema.Attribute.Relation<'oneToMany', 'api::inboxx.inboxx'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -735,6 +736,41 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiInboxxInboxx extends Struct.CollectionTypeSchema {
+  collectionName: 'inboxxes';
+  info: {
+    singularName: 'inboxx';
+    pluralName: 'inboxxes';
+    displayName: 'Inboxx';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    restaurant: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::restaurant.restaurant'
+    >;
+    Subject: Schema.Attribute.String;
+    messages: Schema.Attribute.Relation<'oneToMany', 'api::message.message'>;
+    last_message: Schema.Attribute.DateTime;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::inboxx.inboxx'>;
+  };
+}
+
 export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
   collectionName: 'menus';
   info: {
@@ -814,6 +850,38 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::menu-item.menu-item'
+    >;
+  };
+}
+
+export interface ApiMessageMessage extends Struct.CollectionTypeSchema {
+  collectionName: 'messages';
+  info: {
+    singularName: 'message';
+    pluralName: 'messages';
+    displayName: 'Message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    content: Schema.Attribute.String;
+    sent_by: Schema.Attribute.Enumeration<['user', 'restaurant']>;
+    email_message_id: Schema.Attribute.String;
+    read: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    inboxx: Schema.Attribute.Relation<'manyToOne', 'api::inboxx.inboxx'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::message.message'
     >;
   };
 }
@@ -933,6 +1001,7 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
       'api::favourite.favourite'
     >;
     cuisines: Schema.Attribute.Relation<'oneToMany', 'api::cuisine.cuisine'>;
+    inboxxes: Schema.Attribute.Relation<'oneToMany', 'api::inboxx.inboxx'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1471,8 +1540,10 @@ declare module '@strapi/strapi' {
       'api::favourite.favourite': ApiFavouriteFavourite;
       'api::feature.feature': ApiFeatureFeature;
       'api::global.global': ApiGlobalGlobal;
+      'api::inboxx.inboxx': ApiInboxxInboxx;
       'api::menu.menu': ApiMenuMenu;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
+      'api::message.message': ApiMessageMessage;
       'api::profile.profile': ApiProfileProfile;
       'api::profile-allergy.profile-allergy': ApiProfileAllergyProfileAllergy;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "messages",
+  "info": {
+    "singularName": "message",
+    "pluralName": "messages",
+    "displayName": "Message",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "string"
+    },
+    "sent_by": {
+      "type": "enumeration",
+      "enum": [
+        "user",
+        "restaurant"
+      ]
+    },
+    "email_message_id": {
+      "type": "string"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "inboxx": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::inboxx.inboxx",
+      "inversedBy": "messages"
+    }
+  }
+}
