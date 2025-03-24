@@ -61,6 +61,12 @@
       "relation": "manyToOne",
       "target": "api::sub-cuisine.sub-cuisine",
       "inversedBy": "menu_items"
+    },
+    "allergens": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::allergy.allergy",
+      "inversedBy": "menu_items"
     }
   }
 }

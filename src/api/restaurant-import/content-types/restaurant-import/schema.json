@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurant_imports",
+  "info": {
+    "singularName": "restaurant-import",
+    "pluralName": "restaurant-imports",
+    "displayName": "Restaurant Import",
+    "description": "A log of restaurant imports through the bulk import API"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "file_name": {
+      "type": "string",
+      "required": true
+    },
+    "file_size": {
+      "type": "biginteger"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "imported_restaurant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurant.restaurant"
+    },
+    "processed_at": {
+      "type": "datetime"
+    },
+    "error_details": {
+      "type": "json"
+    },
+    "log": {
+      "type": "text"
+    },
+    "summary": {
+      "type": "json"
+    }
+  }
+} 

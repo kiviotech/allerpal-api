@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chats",
+  "info": {
+    "singularName": "chat",
+    "pluralName": "chats",
+    "displayName": "Chat",
+    "description": "Chat conversations between users and restaurants"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "chats"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "chats"
+    },
+    "lastMessage": {
+      "type": "text"
+    },
+    "lastMessageTime": {
+      "type": "datetime"
+    },
+    "unreadCount": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "pending_restaurant",
+        "responded",
+        "reminder_sent",
+        "failed",
+        "closed"
+      ],
+      "default": "active"
+    },
+    "reminderScheduled": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminderSent": {
+      "type": "datetime"
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
+      "mappedBy": "chat"
+    }
+  }
+}

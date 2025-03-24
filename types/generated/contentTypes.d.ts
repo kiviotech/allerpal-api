@@ -477,6 +477,7 @@ export interface PluginUsersPermissionsUser
       'api::user-allergy.user-allergy'
     >;
     inboxxes: Schema.Attribute.Relation<'oneToMany', 'api::inboxx.inboxx'>;
+    chats: Schema.Attribute.Relation<'oneToMany', 'api::chat.chat'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -527,29 +528,34 @@ export interface ApiAllergyAllergy extends Struct.CollectionTypeSchema {
     singularName: 'allergy';
     pluralName: 'allergies';
     displayName: 'Allergy';
-    description: '';
+    description: 'Allergy information that can be associated with profiles';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     user_allergy: Schema.Attribute.Relation<
       'manyToOne',
       'api::user-allergy.user-allergy'
     >;
-    is_custom: Schema.Attribute.Boolean;
+    is_custom: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     Allergeimage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    profile_allergy: Schema.Attribute.Relation<
-      'manyToOne',
+    profile_allergies: Schema.Attribute.Relation<
+      'manyToMany',
       'api::profile-allergy.profile-allergy'
     >;
     Allergen_icon: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    menu_items: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::menu-item.menu-item'
+    >;
+    description: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -600,6 +606,63 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiChatChat extends Struct.CollectionTypeSchema {
+  collectionName: 'chats';
+  info: {
+    singularName: 'chat';
+    pluralName: 'chats';
+    displayName: 'Chat';
+    description: 'Chat conversations between users and restaurants';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    restaurant: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::restaurant.restaurant'
+    >;
+    lastMessage: Schema.Attribute.Text;
+    lastMessageTime: Schema.Attribute.DateTime;
+    unreadCount: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    status: Schema.Attribute.Enumeration<
+      [
+        'active',
+        'pending_restaurant',
+        'responded',
+        'reminder_sent',
+        'failed',
+        'closed',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'active'>;
+    reminderScheduled: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    reminderSent: Schema.Attribute.DateTime;
+    messages: Schema.Attribute.Relation<'oneToMany', 'api::message.message'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::chat.chat'>;
+  };
+}
+
 export interface ApiCuisineCuisine extends Struct.CollectionTypeSchema {
   collectionName: 'cuisines';
   info: {
@@ -638,6 +701,39 @@ export interface ApiCuisineCuisine extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::cuisine.cuisine'
+    >;
+  };
+}
+
+export interface ApiEmailHandlerEmailHandler extends Struct.SingleTypeSchema {
+  collectionName: 'email_handlers';
+  info: {
+    singularName: 'email-handler';
+    pluralName: 'email-handlers';
+    displayName: 'Email Handler';
+    description: 'Configuration for email webhook handling';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    webhookEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    defaultResponseTime: Schema.Attribute.Integer &
+      Schema.Attribute.DefaultTo<24>;
+    reminderEnabled: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    emailTemplate: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::email-handler.email-handler'
     >;
   };
 }
@@ -839,6 +935,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::sub-cuisine.sub-cuisine'
     >;
+    allergens: Schema.Attribute.Relation<'manyToMany', 'api::allergy.allergy'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -860,17 +957,18 @@ export interface ApiMessageMessage extends Struct.CollectionTypeSchema {
     singularName: 'message';
     pluralName: 'messages';
     displayName: 'Message';
-    description: '';
+    description: 'Messages in chat conversations';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    content: Schema.Attribute.String;
-    sent_by: Schema.Attribute.Enumeration<['user', 'restaurant']>;
-    email_message_id: Schema.Attribute.String;
+    text: Schema.Attribute.Text & Schema.Attribute.Required;
+    sender: Schema.Attribute.Enumeration<['user', 'restaurant', 'system']> &
+      Schema.Attribute.Required;
+    timestamp: Schema.Attribute.DateTime & Schema.Attribute.Required;
     read: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    inboxx: Schema.Attribute.Relation<'manyToOne', 'api::inboxx.inboxx'>;
+    chat: Schema.Attribute.Relation<'manyToOne', 'api::chat.chat'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -939,17 +1037,20 @@ export interface ApiProfileAllergyProfileAllergy
   info: {
     singularName: 'profile-allergy';
     pluralName: 'profile-allergies';
-    displayName: 'profile_allergy';
-    description: '';
+    displayName: 'Profile Allergy';
+    description: 'Allergies associated with a specific profile';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
     profile: Schema.Attribute.Relation<'manyToOne', 'api::profile.profile'>;
-    severity: Schema.Attribute.Enumeration<['mild', 'moderate', 'severe']>;
-    allergies: Schema.Attribute.Relation<'oneToMany', 'api::allergy.allergy'>;
-    excludeMayContain: Schema.Attribute.Boolean;
+    severity: Schema.Attribute.Enumeration<['mild', 'moderate', 'severe']> &
+      Schema.Attribute.DefaultTo<'mild'>;
+    allergies: Schema.Attribute.Relation<'manyToMany', 'api::allergy.allergy'>;
+    excludeMayContain: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    notes: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -974,7 +1075,7 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Schema.Attribute.String;
@@ -1002,6 +1103,8 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
     >;
     cuisines: Schema.Attribute.Relation<'oneToMany', 'api::cuisine.cuisine'>;
     inboxxes: Schema.Attribute.Relation<'oneToMany', 'api::inboxx.inboxx'>;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    chats: Schema.Attribute.Relation<'oneToMany', 'api::chat.chat'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1013,6 +1116,49 @@ export interface ApiRestaurantRestaurant extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::restaurant.restaurant'
+    >;
+  };
+}
+
+export interface ApiRestaurantImportRestaurantImport
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'restaurant_imports';
+  info: {
+    singularName: 'restaurant-import';
+    pluralName: 'restaurant-imports';
+    displayName: 'Restaurant Import';
+    description: 'A log of restaurant imports through the bulk import API';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    file_name: Schema.Attribute.String & Schema.Attribute.Required;
+    file_size: Schema.Attribute.BigInteger;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'processing', 'completed', 'failed']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
+    imported_restaurant: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::restaurant.restaurant'
+    >;
+    processed_at: Schema.Attribute.DateTime;
+    error_details: Schema.Attribute.JSON;
+    log: Schema.Attribute.Text;
+    summary: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::restaurant-import.restaurant-import'
     >;
   };
 }
@@ -1536,7 +1682,9 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::allergy.allergy': ApiAllergyAllergy;
       'api::article.article': ApiArticleArticle;
+      'api::chat.chat': ApiChatChat;
       'api::cuisine.cuisine': ApiCuisineCuisine;
+      'api::email-handler.email-handler': ApiEmailHandlerEmailHandler;
       'api::favourite.favourite': ApiFavouriteFavourite;
       'api::feature.feature': ApiFeatureFeature;
       'api::global.global': ApiGlobalGlobal;
@@ -1547,6 +1695,7 @@ declare module '@strapi/strapi' {
       'api::profile.profile': ApiProfileProfile;
       'api::profile-allergy.profile-allergy': ApiProfileAllergyProfileAllergy;
       'api::restaurant.restaurant': ApiRestaurantRestaurant;
+      'api::restaurant-import.restaurant-import': ApiRestaurantImportRestaurantImport;
       'api::review.review': ApiReviewReview;
       'api::sub-cuisine.sub-cuisine': ApiSubCuisineSubCuisine;
       'api::table-booking.table-booking': ApiTableBookingTableBooking;

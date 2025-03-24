@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "email_handlers",
+  "info": {
+    "singularName": "email-handler",
+    "pluralName": "email-handlers",
+    "displayName": "Email Handler",
+    "description": "Configuration for email webhook handling"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "webhookEnabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the email webhook is enabled"
+    },
+    "defaultResponseTime": {
+      "type": "integer",
+      "default": 24,
+      "description": "Default response time in hours for restaurants"
+    },
+    "reminderEnabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to send reminder emails"
+    },
+    "emailTemplate": {
+      "type": "text",
+      "description": "HTML template for emails sent to restaurants"
+    }
+  }
+} 

@@ -4,8 +4,8 @@
   "info": {
     "singularName": "profile-allergy",
     "pluralName": "profile-allergies",
-    "displayName": "profile_allergy",
-    "description": ""
+    "displayName": "Profile Allergy",
+    "description": "Allergies associated with a specific profile"
   },
   "options": {
     "draftAndPublish": false
@@ -24,16 +24,21 @@
         "mild",
         "moderate",
         "severe"
-      ]
+      ],
+      "default": "mild"
     },
     "allergies": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::allergy.allergy",
-      "mappedBy": "profile_allergy"
+      "inversedBy": "profile_allergies"
     },
     "excludeMayContain": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
+    },
+    "notes": {
+      "type": "text"
     }
   }
 }

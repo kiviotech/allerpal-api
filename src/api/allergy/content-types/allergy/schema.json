@@ -5,7 +5,7 @@
     "singularName": "allergy",
     "pluralName": "allergies",
     "displayName": "Allergy",
-    "description": ""
+    "description": "Allergy information that can be associated with profiles"
   },
   "options": {
     "draftAndPublish": true
@@ -13,16 +13,20 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "user_allergy": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::user-allergy.user-allergy",
-      "inversedBy": "allergies"
+      "inversedBy": "allergies",
+      "deprecated": true,
+      "private": false
     },
     "is_custom": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "Allergeimage": {
       "type": "media",
@@ -35,11 +39,11 @@
         "audios"
       ]
     },
-    "profile_allergy": {
+    "profile_allergies": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::profile-allergy.profile-allergy",
-      "inversedBy": "allergies"
+      "mappedBy": "allergies"
     },
     "Allergen_icon": {
       "allowedTypes": [
@@ -50,6 +54,15 @@
       ],
       "type": "media",
       "multiple": false
+    },
+    "menu_items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::menu-item.menu-item",
+      "mappedBy": "allergens"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

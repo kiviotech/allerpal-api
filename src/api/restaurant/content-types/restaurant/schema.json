@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -78,6 +78,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::inboxx.inboxx",
+      "mappedBy": "restaurant"
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "description": "Restaurant email for communication"
+    },
+    "chats": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chat.chat",
       "mappedBy": "restaurant"
     }
   }

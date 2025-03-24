@@ -5,34 +5,38 @@
     "singularName": "message",
     "pluralName": "messages",
     "displayName": "Message",
-    "description": ""
+    "description": "Messages in chat conversations"
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "type": "string"
+    "text": {
+      "type": "text",
+      "required": true
     },
-    "sent_by": {
+    "sender": {
       "type": "enumeration",
       "enum": [
         "user",
-        "restaurant"
-      ]
+        "restaurant",
+        "system"
+      ],
+      "required": true
     },
-    "email_message_id": {
-      "type": "string"
+    "timestamp": {
+      "type": "datetime",
+      "required": true
     },
     "read": {
       "type": "boolean",
       "default": false
     },
-    "inboxx": {
+    "chat": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::inboxx.inboxx",
+      "target": "api::chat.chat",
       "inversedBy": "messages"
     }
   }

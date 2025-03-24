@@ -82,12 +82,20 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::user-allergy.user-allergy",
-      "inversedBy": "user"
+      "inversedBy": "user",
+      "deprecated": true,
+      "private": false
     },
     "inboxxes": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::inboxx.inboxx",
+      "mappedBy": "user"
+    },
+    "chats": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::chat.chat",
       "mappedBy": "user"
     }
   }
