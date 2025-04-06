@@ -176,11 +176,11 @@ module.exports = {
       // Find all chats with unread messages for this user
       const chats = await strapi.entityService.findMany('api::chat.chat', {
         filters: {
-          customer: userId,
+          user: userId,
           unreadCount: { $gt: 0 },
         },
         sort: { lastMessageTime: 'desc' },
-        populate: ['lastMessage', 'restaurant'],
+        populate: ['restaurant'],
       });
       
       strapi.log.info(`[CheckNewMessages] Found ${chats.length} chats with unread messages for user ${userId}`);

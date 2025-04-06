@@ -59,6 +59,17 @@
       "relation": "oneToMany",
       "target": "api::message.message",
       "mappedBy": "chat"
+    },
+    "emailMetadata": {
+      "type": "json",
+      "private": false,
+      "description": "Stores email metadata for tracking message threads",
+      "default": {
+        "messageId": null,
+        "inReplyTo": null,
+        "references": null,
+        "lastProcessedAt": null
+      }
     }
   }
 }

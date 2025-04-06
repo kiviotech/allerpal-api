@@ -1,11 +1,31 @@
 'use strict';
 
 const emailPollerModule = require('./services/email-poller');
+const emailQueueModule = require('./services/email-queue');
 
 module.exports = async ({ strapi }) => {
-  console.log('=== Bootstrap: Starting to initialize email test service... ===');
+  console.log('=== Bootstrap: Starting to initialize application services... ===');
   
   try {
+    // Initialize email queue service first
+    console.log('=== Bootstrap: Starting to initialize email queue service... ===');
+    try {
+      const emailQueue = emailQueueModule(strapi);
+      await emailQueue.initialize();
+      
+      // Store the service instance for reference
+      strapi.emailQueue = emailQueue;
+      
+      // Also register the service in the services registry
+      strapi.services['email-queue'] = emailQueue;
+      
+      console.log('=== Bootstrap: Email queue service successfully initialized ===');
+    } catch (queueError) {
+      console.error('=== Bootstrap: Failed to initialize email queue service ===', queueError);
+      console.log('=== Bootstrap: Continuing startup despite email queue initialization failure ===');
+      // Continue with startup even if email queue fails
+    }
+    
     // Initialize simplified email test service
     console.log('=== Bootstrap: Starting to initialize email test service... ===');
     const emailPoller = emailPollerModule({ strapi });
@@ -31,6 +51,14 @@ module.exports = async ({ strapi }) => {
         await strapi.emailPoller.stop();
         delete strapi.emailPoller;
         delete strapi.services['email-poller'];
+      }
+      
+      // Clean up email queue
+      if (strapi.emailQueue) {
+        console.log('=== Bootstrap: Cleaning up email queue service... ===');
+        await strapi.emailQueue.close();
+        delete strapi.emailQueue;
+        delete strapi.services['email-queue'];
       }
       
       console.log('=== Bootstrap: All services cleaned up ===');

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Worker } = require('bullmq');
-const IORedis = require('ioredis');
+const Redis = require('ioredis');
 
 /**
  * Email Worker Service for processing email checking jobs
@@ -9,106 +9,37 @@ const IORedis = require('ioredis');
 class EmailWorkerService {
   constructor(strapi) {
     this.strapi = strapi;
-    this.initialized = false;
-    this.connection = null;
-    this.worker = null;
-    this.emailPoller = null;
-    
-    this.initialize();
+    this.emailPoller = strapi.service('email-poller');
+    this.setupWorker();
   }
 
-  /**
-   * Initialize the email worker service
-   */
-  async initialize() {
-    try {
-      // Get the email poller service
-      this.emailPoller = this.strapi.emailPoller || this.strapi.services['email-poller'];
+  setupWorker() {
+    // Redis connection for BullMQ
+    const connection = {
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT || '6379', 10),
+      password: process.env.REDIS_PASSWORD,
+      db: parseInt(process.env.REDIS_DB || '0', 10)
+    };
+
+    // Create worker
+    this.worker = new Worker('email-queue', async (job) => {
+      this.strapi.log.info(`[EmailWorker] Processing job ${job.id} of type ${job.name}`);
       
-      if (!this.emailPoller) {
-        this.strapi.log.error('[EmailWorker] Email poller service not found');
-        throw new Error('Email poller service not found');
+      try {
+        switch (job.name) {
+          case 'check-emails':
+            return await this.processCheckEmailsJob(job);
+          case 'check-chat-emails':
+            return await this.processCheckChatEmailsJob(job);
+          default:
+            throw new Error(`Unknown job type: ${job.name}`);
+        }
+      } catch (error) {
+        this.strapi.log.error(`[EmailWorker] Error processing job ${job.id}:`, error);
+        throw error;
       }
-
-      // Create Redis connection
-      this.connection = new IORedis({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379,
-        password: process.env.REDIS_PASSWORD,
-        maxRetriesPerRequest: null,
-      });
-
-      // Create the worker
-      this.worker = new Worker('email-check', this.processJob.bind(this), {
-        connection: this.connection,
-        concurrency: 1, // Process one job at a time to avoid IMAP connection issues
-        limiter: {
-          max: 1,
-          duration: 15000, // Limit to 1 job every 15 seconds
-        },
-      });
-
-      // Set up event handlers
-      this.setupEventHandlers();
-
-      this.initialized = true;
-      this.strapi.log.info('[EmailWorker] Email worker service initialized successfully');
-      
-      return true;
-    } catch (error) {
-      this.strapi.log.error('[EmailWorker] Error initializing worker:', error);
-      this.initialized = false;
-      throw error;
-    }
-  }
-
-  /**
-   * Set up event handlers for the worker
-   */
-  setupEventHandlers() {
-    // Job completed successfully
-    this.worker.on('completed', (job, result) => {
-      this.strapi.log.info(`[EmailWorker] Job ${job.id} completed:`, {
-        name: job.name,
-        result,
-        timestamp: new Date().toISOString(),
-      });
-    });
-
-    // Job failed
-    this.worker.on('failed', (job, error) => {
-      this.strapi.log.error(`[EmailWorker] Job ${job.id} failed:`, {
-        name: job.name,
-        error: error.message,
-        stack: error.stack,
-        timestamp: new Date().toISOString(),
-      });
-    });
-
-    // Worker is ready
-    this.worker.on('ready', () => {
-      this.strapi.log.info('[EmailWorker] Worker is ready');
-    });
-
-    // Worker is paused
-    this.worker.on('paused', () => {
-      this.strapi.log.info('[EmailWorker] Worker is paused');
-    });
-
-    // Worker is resumed
-    this.worker.on('resumed', () => {
-      this.strapi.log.info('[EmailWorker] Worker is resumed');
-    });
-
-    // Worker is closed
-    this.worker.on('closed', () => {
-      this.strapi.log.info('[EmailWorker] Worker is closed');
-    });
-
-    // Worker error
-    this.worker.on('error', (error) => {
-      this.strapi.log.error('[EmailWorker] Worker error:', error);
-    });
+    }, { connection });
   }
 
   /**
@@ -209,26 +140,26 @@ class EmailWorkerService {
    * @returns {Promise<Object>} - The result of the job
    */
   async processCheckChatEmailsJob(job) {
+    const jobChatId = job.data.chatId;
+    
     try {
-      const { chatId } = job.data;
-      
-      if (!chatId) {
+      if (!jobChatId) {
         throw new Error('Chat ID is required in job data');
       }
 
-      this.strapi.log.info(`[EmailWorker] Checking for new emails for chat ${chatId}:`, {
+      this.strapi.log.info(`[EmailWorker] Checking for new emails for chat ${jobChatId}:`, {
         jobId: job.id,
-        chatId: chatId,
+        chatId: jobChatId,
         timestamp: new Date().toISOString(),
       });
 
       // Check if the chat exists
-      const chat = await this.strapi.entityService.findOne('api::chat.chat', chatId, {
-        populate: ['restaurant']
+      const chat = await this.strapi.entityService.findOne('api::chat.chat', jobChatId, {
+        populate: ['restaurant', 'emailMetadata']
       });
 
       if (!chat) {
-        throw new Error(`Chat with ID ${chatId} not found`);
+        throw new Error(`Chat with ID ${jobChatId} not found`);
       }
 
       // Log IMAP configuration
@@ -240,28 +171,89 @@ class EmailWorkerService {
         isConnected: this.emailPoller.isConnected,
       });
 
-      // Check for new emails
-      const startTime = new Date();
-      const result = await this.emailPoller.checkEmails();
-      const endTime = new Date();
+      // Check for new emails with metadata matching
+      const startTime = new Date().getTime();
+      let result;
+      
+      try {
+        // Build search criteria based on chat metadata
+        const searchCriteria = [];
+        searchCriteria.push('UNSEEN');
+        
+        // If we have a previous message ID, search for replies
+        if (chat.emailMetadata?.messageId) {
+          searchCriteria.push('OR');
+          searchCriteria.push(['HEADER', 'in-reply-to', chat.emailMetadata.messageId]);
+          searchCriteria.push(['HEADER', 'references', chat.emailMetadata.messageId]);
+        }
+        
+        // Add date constraint
+        const lastCheck = chat.emailMetadata?.lastProcessedAt 
+          ? new Date(chat.emailMetadata.lastProcessedAt)
+          : new Date(Date.now() - 24 * 60 * 60 * 1000); // Last 24 hours if no previous check
+          
+        searchCriteria.push('SINCE');
+        searchCriteria.push(lastCheck);
+        
+        result = await this.emailPoller.checkEmails(searchCriteria);
+      } catch (error) {
+        this.strapi.log.error('[EmailWorker] Error checking emails:', error);
+        throw error;
+      }
+      
+      const endTime = new Date().getTime();
+      const duration = endTime - startTime;
 
       // Log email check details
-      this.strapi.log.info(`[EmailWorker] Email check details for chat ${chatId}:`, {
-        duration: `${endTime - startTime}ms`,
+      this.strapi.log.info(`[EmailWorker] Email check details for chat ${jobChatId}:`, {
+        duration: `${duration}ms`,
         imapConnected: this.emailPoller.isConnected,
         lastPollTime: this.emailPoller.lastPollTime,
         pollCount: this.emailPoller.pollCount,
-        chatId: chatId
+        chatId: jobChatId,
+        emailsFound: result?.messagesFound || 0,
+        emailsProcessed: result?.messagesProcessed || 0
+      });
+
+      // Update last check time even if no new messages
+      await this.strapi.entityService.update('api::chat.chat', jobChatId, {
+        data: {
+          emailMetadata: {
+            ...chat.emailMetadata,
+            lastProcessedAt: new Date().toISOString()
+          }
+        }
       });
 
       return {
         success: true,
         timestamp: new Date().toISOString(),
-        duration: endTime - startTime,
-        chatId: chatId
+        duration,
+        chatId: jobChatId,
+        emailsFound: result?.messagesFound || 0,
+        emailsProcessed: result?.messagesProcessed || 0
       };
     } catch (error) {
       this.strapi.log.error(`[EmailWorker] Error checking emails for chat:`, error);
+      
+      // Try to update chat status on error
+      try {
+        if (error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT') {
+          await this.strapi.entityService.update('api::chat.chat', jobChatId, {
+            data: {
+              status: 'failed',
+              lastError: {
+                message: error.message,
+                code: error.code,
+                timestamp: new Date().toISOString()
+              }
+            }
+          });
+        }
+      } catch (updateError) {
+        this.strapi.log.error('[EmailWorker] Error updating chat status:', updateError);
+      }
+      
       throw error;
     }
   }
@@ -288,4 +280,6 @@ class EmailWorkerService {
   }
 }
 
-module.exports = EmailWorkerService; 
+module.exports = ({ strapi }) => {
+  return new EmailWorkerService(strapi);
+}; 

@@ -1,7 +1,8 @@
 'use strict';
 
-const { Queue } = require('bullmq');
-const IORedis = require('ioredis');
+const bullmq = require('bullmq');
+const Redis = require('ioredis').default;
+
 
 /**
  * Email Queue Service for handling email checking in the background
@@ -10,27 +11,74 @@ class EmailQueueService {
   constructor(strapi) {
     this.strapi = strapi;
     this.initialized = false;
+   
     this.connection = null;
+   
     this.emailQueue = null;
+    this.initializationPromise = null;
     
-    this.initialize();
+    // Don't initialize in constructor, wait for Strapi lifecycle
+    this.initializationAttempts = 0;
+    this.maxInitializationAttempts = 3;
   }
 
   /**
    * Initialize the email queue service
    */
-  initialize() {
+  async initialize() {
+    if (this.initialized) {
+      return;
+    }
+
+    if (this.initializationPromise) {
+      return this.initializationPromise;
+    }
+
+    this.initializationPromise = this._initialize();
+    return this.initializationPromise;
+  }
+
+  async _initialize() {
     try {
-      // Create Redis connection
-      this.connection = new IORedis({
-        host: process.env.REDIS_HOST || 'localhost',
+      this.initializationAttempts++;
+
+      // Ensure we have required environment variables
+      if (!process.env.REDIS_HOST) {
+        throw new Error('REDIS_HOST environment variable is required');
+      }
+
+      // Create Redis connection with better error handling
+      this.connection = new Redis({
+        host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT || 6379,
         password: process.env.REDIS_PASSWORD,
         maxRetriesPerRequest: null,
+        retryStrategy(times) {
+          const delay = Math.min(times * 1000, 30000);
+          return delay;
+        },
+        reconnectOnError(err) {
+          const targetError = 'READONLY';
+          if (err.message.includes(targetError)) {
+            // Only reconnect on specific errors
+            return true;
+          }
+          return false;
+        }
       });
 
-      // Create the email queue
-      this.emailQueue = new Queue('email-check', {
+      // Handle Redis connection events
+      this.connection.on('error', (error) => {
+        this.strapi.log.error('[EmailQueue] Redis connection error:', error);
+        this.initialized = false;
+      });
+
+      this.connection.on('ready', () => {
+        this.strapi.log.info('[EmailQueue] Redis connection ready');
+      });
+
+      // Create the email queue with improved options
+      this.emailQueue = new bullmq.Queue('email-check', {
         connection: this.connection,
         defaultJobOptions: {
           attempts: 3,
@@ -38,25 +86,43 @@ class EmailQueueService {
             type: 'exponential',
             delay: 5000,
           },
-          removeOnComplete: 100, // Keep only 100 completed jobs
-          removeOnFail: 100, // Keep only 100 failed jobs
+          removeOnComplete: 100,
+          removeOnFail: 100,
+          timeout: 30000, // 30 second timeout for jobs
         }
+      });
+
+      // Handle queue events
+      this.emailQueue.on('error', (error) => {
+        this.strapi.log.error('[EmailQueue] Queue error:', error);
+      });
+
+  
+      this.emailQueue.on('failed', (job, error) => {
+        this.strapi.log.error(`[EmailQueue] Job ${job.id} failed:`, error);
       });
 
       this.initialized = true;
       this.strapi.log.info('[EmailQueue] Email queue service initialized successfully');
+      
+      return true;
     } catch (error) {
       this.strapi.log.error('[EmailQueue] Failed to initialize email queue service:', error);
+      
+      if (this.initializationAttempts < this.maxInitializationAttempts) {
+        this.strapi.log.info(`[EmailQueue] Retrying initialization (attempt ${this.initializationAttempts}/${this.maxInitializationAttempts})`);
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        return this._initialize();
+      }
+      
       throw error;
+    } finally {
+      this.initializationPromise = null;
     }
   }
 
-  /**
-   * Add a job to check for new emails
-   * @param {Object} data - Job data
-   * @param {Object} options - Job options
-   * @returns {Promise<Job>} - The created job
-   */
+
   async addCheckEmailsJob(data = {}, options = {}) {
     if (!this.initialized) {
       this.strapi.log.error('[EmailQueue] Email queue service not initialized');
@@ -78,11 +144,7 @@ class EmailQueueService {
     }
   }
 
-  /**
-   * Add a job to check for new emails for a specific chat
-   * @param {string|number} chatId - The ID of the chat to check
-   * @returns {Promise<Object>} - The created job
-   */
+
   async addCheckChatEmailsJob(chatId) {
     try {
       if (!this.initialized) {
@@ -126,7 +188,7 @@ class EmailQueueService {
   /**
    * Add a repeated job to check for new emails
    * @param {Object} options - Job options
-   * @returns {Promise<Object>} - The created job
+   * @returns {Promise<any>} - The created job
    */
   async addRepeatedEmailCheckJob(options = {}) {
     try {
@@ -189,4 +251,17 @@ class EmailQueueService {
   }
 }
 
-module.exports = EmailQueueService; 
+module.exports = ({ strapi }) => {
+  const service = new EmailQueueService(strapi);
+  
+  // Register lifecycle hooks
+  strapi.hook('strapi::server.afterStart').register(() => {
+    return service.initialize();
+  });
+  
+  strapi.hook('strapi::server.beforeStop').register(() => {
+    return service.close();
+  });
+  
+  return service;
+}; 

@@ -42,5 +42,15 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/api/email/check-emails',
+      handler: 'email.triggerEmailCheck',
+      config: {
+        auth: false,
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 }; 

@@ -229,5 +229,32 @@ module.exports = {
     });
     
     return replyText.trim();
+  },
+
+  async triggerEmailCheck(ctx) {
+    try {
+      // Get the email poller service
+      const emailPollerService = strapi.services['email-poller'];
+      
+      if (!emailPollerService) {
+        return ctx.badRequest('Email poller service not available');
+      }
+      
+      // Check if the trigger method exists
+      if (typeof emailPollerService.triggerManualCheck !== 'function') {
+        return ctx.badRequest('Email poller service does not support manual checks');
+      }
+      
+      // Trigger the manual check
+      const result = await emailPollerService.triggerManualCheck();
+      
+      ctx.body = {
+        success: true,
+        result
+      };
+    } catch (error) {
+      console.error('[Email Controller] Error triggering email check:', error);
+      ctx.throw(500, error.message);
+    }
   }
 }; 

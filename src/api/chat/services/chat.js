@@ -1,60 +1,43 @@
 'use strict';
 
-/**
- * chat service
- */
-
 module.exports = ({ strapi }) => ({
-  async processRestaurantReply(chatId, replyText) {
+  async processRestaurantResponse(chatId, content, timestamp) {
     try {
-      // Get the chat
-      const chat = await strapi.entityService.findOne('api::chat.chat', chatId, {
-        populate: ['messages']
-      });
-
-      if (!chat) {
-        throw new Error(`Chat not found with ID: ${chatId}`);
-      }
-
-      // Add restaurant's reply as a message
-      await strapi.entityService.create('api::message.message', {
+      // Update chat status and last message
+      const updatedChat = await strapi.entityService.update('api::chat.chat', chatId, {
         data: {
-          text: replyText,
-          sender: 'restaurant',
-          timestamp: new Date().toISOString(),
-          read: false,
-          chat: chatId
+          status: 'responded',
+          lastMessage: content,
+          lastMessageTime: timestamp
         }
       });
 
-      // Update chat status
-      const updatedChat = await strapi.entityService.update('api::chat.chat', chatId, {
+      // Create new message record
+      await strapi.entityService.create('api::message.message', {
         data: {
-          lastMessage: replyText,
-          lastMessageTime: new Date().toISOString(),
-          status: 'responded',
-          unreadCount: (chat.unreadCount || 0) + 1
+          text: content,
+          sender: 'restaurant',
+          timestamp,
+          chat: chatId,
+          read: false
+        }
+      });
+
+      // Trigger notification
+      await strapi.service('api::notification.notification').create({
+        data: {
+          type: 'chat_reply',
+          user: updatedChat.user.id,
+          restaurant: updatedChat.restaurant.id,
+          chat: chatId,
+          message: `New reply from ${updatedChat.restaurant.name}`
         }
       });
 
       return updatedChat;
     } catch (error) {
-      console.error('[Chat Service] Error processing restaurant reply:', error);
-      throw error;
-    }
-  },
-
-  async addMessageToChat(chatId, messageData) {
-    try {
-      return await strapi.entityService.create('api::message.message', {
-        data: {
-          ...messageData,
-          chat: chatId
-        }
-      });
-    } catch (error) {
-      console.error('[Chat Service] Error adding message to chat:', error);
+      strapi.log.error('Error processing restaurant response:', error);
       throw error;
     }
   }
-}); 
+});
